@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d19165ac-eb6f-490c-b2c6-2eec822adbdc" name="live">
+        <fileTransfer accessType="SFTP" host="139.144.118.84" port="22" sshConfigId="5d289088-02bf-4f66-9f89-e2813aa43ffb" sshConfig="root@139.144.118.84:22 agent" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="7569da92-d83b-4917-9cbd-4aaf99810278" name="napsl live">
+        <fileTransfer accessType="SFTP" host="139.144.118.84" port="22" sshConfigId="5d289088-02bf-4f66-9f89-e2813aa43ffb" sshConfig="root@139.144.118.84:22 agent" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
