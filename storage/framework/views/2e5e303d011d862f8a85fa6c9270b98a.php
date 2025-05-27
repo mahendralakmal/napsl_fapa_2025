@@ -17,13 +17,13 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo e(route('entry-rules')); ?>">Entry Rules</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Entry Form</a>
+                                <a class="nav-link" href="<?php echo e(url('pages-profile')); ?>">Entry Form</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Payment</a>
@@ -38,6 +38,7 @@
                     </div>
                 </nav>
             <div class="d-flex align-items-center">
+                <?php if(Auth::user()): ?>
                 <div class="dropdown ms-sm-3 header-item" >
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
@@ -58,6 +59,7 @@
                         </form>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

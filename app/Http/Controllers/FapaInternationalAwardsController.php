@@ -13,7 +13,6 @@ class FapaInternationalAwardsController extends Controller
     public function index()
     {
         $profile = \App\Models\FapaInternationalAwards::where('user_id', auth()->id())->first();
-        dd($profile);
         return view('pages-profile', compact('profile'));
     }
 

@@ -80,39 +80,43 @@
                             <div class="col-xxl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <?php $__currentLoopData = ['Open Monochrome', 'Open Color']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <div class="col-md-6">
-                                                    <h5 class="mb-3"><?php echo e($section); ?></h5>
-                                                    <?php for($i = 1; $i <= 4; $i++): ?>
-                                                        <form class="myForm mb-4" enctype="multipart/form-data" method="POST"
-                                                            data-section="<?php echo e($section); ?>"
-                                                            data-count="<?php echo e($i); ?>" action="<?php echo e(route('exhibition_entries.store')); ?>">
-                                                            <?php echo csrf_field(); ?>
-                                                            <input type="hidden" name="section" value="<?php echo e($section); ?>">
-                                                            <input type="hidden" name="count" value="<?php echo e($i); ?>">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="me-3">
-                                                                    <label for="title_<?php echo e($section); ?>_<?php echo e($i); ?>"
-                                                                           class="form-label mb-1">Title</label>
-                                                                    <input type="text" class="form-control mb-2"
-                                                                           name="image_caption" id="title_<?php echo e($section); ?>_<?php echo e($i); ?>"
-                                                                           required>
-                                                                    <input type="file" class="form-control mb-2"
-                                                                           name="image" accept="image/*" required>
-                                                                    <button type="submit" class="btn btn-success btn-upload">
-                                                                        Submit
-                                                                    </button>
-                                                                </div>
-                                                                <div class="uploaded-image ms-3">
-                                                                    <!-- Image preview will appear here -->
-                                                                </div>
+                                        <?php $__currentLoopData = ['Open Monochrome', 'Open Color', 'World In Focus']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h5 class="mb-3" style="text-align: center;border-bottom: 1px solid #e5e5e5;padding-bottom: 12px;margin-top: 2rem;"><?php echo e($section); ?></h5>
+                                                    <div class="row">
+                                                        <?php for($i = 1; $i <= 4; $i++): ?>
+                                                            <div class="col-xxl-6">
+                                                                <form class="myForm mb-4" enctype="multipart/form-data" method="POST"
+                                                                    data-section="<?php echo e($section); ?>"
+                                                                    data-count="<?php echo e($i); ?>" action="<?php echo e(route('exhibition_entries.store')); ?>">
+                                                                    <?php echo csrf_field(); ?>
+                                                                    <input type="hidden" name="section" value="<?php echo e($section); ?>">
+                                                                    <input type="hidden" name="count" value="<?php echo e($i); ?>">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="me-3">
+                                                                            <label for="title_<?php echo e($section); ?>_<?php echo e($i); ?>"
+                                                                                class="form-label mb-1">Title</label>
+                                                                            <input type="text" class="form-control mb-2"
+                                                                                name="image_caption" id="title_<?php echo e($section); ?>_<?php echo e($i); ?>"
+                                                                                required>
+                                                                            <input type="file" class="form-control mb-2"
+                                                                                name="image" accept="image/jpeg" required>
+                                                                            <button type="submit" class="btn btn-primary btn-upload">
+                                                                                Submit
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="uploaded-image ms-3">
+                                                                            <!-- Image preview will appear here -->
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
                                                             </div>
-                                                        </form>
-                                                    <?php endfor; ?>
+                                                        <?php endfor; ?>
+                                                    </div>
                                                 </div>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        </div>
+                                            </div>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
                                 </div>
                             </div>

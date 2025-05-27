@@ -81,39 +81,43 @@
                             <div class="col-xxl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row">
-                                            @foreach(['Open Monochrome', 'Open Color'] as $section)
-                                                <div class="col-md-6">
-                                                    <h5 class="mb-3">{{ $section }}</h5>
-                                                    @for($i = 1; $i <= 4; $i++)
-                                                        <form class="myForm mb-4" enctype="multipart/form-data" method="POST"
-                                                            data-section="{{ $section }}"
-                                                            data-count="{{ $i }}" action="{{ route('exhibition_entries.store') }}">
-                                                            @csrf
-                                                            <input type="hidden" name="section" value="{{ $section }}">
-                                                            <input type="hidden" name="count" value="{{ $i }}">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="me-3">
-                                                                    <label for="title_{{ $section }}_{{ $i }}"
-                                                                           class="form-label mb-1">Title</label>
-                                                                    <input type="text" class="form-control mb-2"
-                                                                           name="image_caption" id="title_{{ $section }}_{{ $i }}"
-                                                                           required>
-                                                                    <input type="file" class="form-control mb-2"
-                                                                           name="image" accept="image/*" required>
-                                                                    <button type="submit" class="btn btn-success btn-upload">
-                                                                        Submit
-                                                                    </button>
-                                                                </div>
-                                                                <div class="uploaded-image ms-3">
-                                                                    <!-- Image preview will appear here -->
-                                                                </div>
+                                        @foreach(['Open Monochrome', 'Open Color', 'World In Focus'] as $section)
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h5 class="mb-3" style="text-align: center;border-bottom: 1px solid #e5e5e5;padding-bottom: 12px;margin-top: 2rem;">{{ $section }}</h5>
+                                                    <div class="row">
+                                                        @for($i = 1; $i <= 4; $i++)
+                                                            <div class="col-xxl-6">
+                                                                <form class="myForm mb-4" enctype="multipart/form-data" method="POST"
+                                                                    data-section="{{ $section }}"
+                                                                    data-count="{{ $i }}" action="{{ route('exhibition_entries.store') }}">
+                                                                    @csrf
+                                                                    <input type="hidden" name="section" value="{{ $section }}">
+                                                                    <input type="hidden" name="count" value="{{ $i }}">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="me-3">
+                                                                            <label for="title_{{ $section }}_{{ $i }}"
+                                                                                class="form-label mb-1">Title</label>
+                                                                            <input type="text" class="form-control mb-2"
+                                                                                name="image_caption" id="title_{{ $section }}_{{ $i }}"
+                                                                                required>
+                                                                            <input type="file" class="form-control mb-2"
+                                                                                name="image" accept="image/jpeg" required>
+                                                                            <button type="submit" class="btn btn-primary btn-upload">
+                                                                                Submit
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="uploaded-image ms-3">
+                                                                            <!-- Image preview will appear here -->
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
                                                             </div>
-                                                        </form>
-                                                    @endfor
+                                                        @endfor
+                                                    </div>
                                                 </div>
-                                            @endforeach
-                                        </div>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>

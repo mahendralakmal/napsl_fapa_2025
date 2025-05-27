@@ -25,8 +25,8 @@
             <!--end col-->
             <div class="col">
                 <div class="p-2">
-                    {{-- <h3 class="text-white mb-1 text-capitalize">@if(!is_null(auth()->user()->profile)){{auth()->user()->profile->first_name}} {{auth()->user()->profile->surname}}@else{{auth()->user()->name}}@endif</h3> --}}
-                    {{-- <p class="text-white-75 text-capitalize">@if(!is_null(auth()->user()->profile)){{auth()->user()->profile->section}}@endif</p> --}}
+                    {{-- <h3 class="text-white mb-1 text-capitalize">@if(!is_null(auth()->user()->profile)){{auth()->user()->profile->first_name}} {{auth()->user()->profile->surname}}@else{{auth()->user()->name}}@endif</h3>
+                    <p class="text-white-75 text-capitalize">@if(!is_null(auth()->user()->profile)){{auth()->user()->profile->section}}@endif</p> --}}
                 </div>
             </div>
         </div>
@@ -84,124 +84,129 @@
                             <div class="col-xxl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title mb-3">Update Profile</h5>
-
-                                        <form id="submitForm" @if(is_null(auth()->user()->profile))action="{{route('user_profile.store')}}" method="POST"
-                                              @else action="{{route('user_profile.store',auth()->user()->profile->id)}}" method="PUT" @endif>
-                                            @csrf
+                                        <div class="row">
                                             <div class="col-xxl-5">
-                                                <input type="hidden" id="id" name="id"
-                                                       @if(!is_null(auth()->user()->profile))value="{{auth()->user()->profile->id}}"@endif>
-                                                <div class="mb-3">
-                                                    <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
-                                                    <select class="form-control @error('title') is-invalid @enderror" name="title" id="title" required>
-                                                        <option value="">Select Title</option>
-                                                        <option value="Dr." {{ old('title') == 'Dr.' ? 'selected' : '' }}>Dr.</option>
-                                                        <option value="Mr." {{ old('title') == 'Mr.' ? 'selected' : '' }}>Mr.</option>
-                                                        <option value="Mrs." {{ old('title') == 'Mrs.' ? 'selected' : '' }}>Mrs.</option>
-                                                        <option value="Ms." {{ old('title') == 'Ms.' ? 'selected' : '' }}>Ms.</option>
-                                                    </select>
-                                                    @error('title')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
-                                                    <input type="text"
-                                                           class="form-control @error('name') is-invalid @enderror"
-                                                           name="name" value="{{ old('name') }}"
-                                                           id="name"
-                                                           placeholder="Enter your name" required>
-                                                    @error('name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="honors" class="form-label">Honors</label>
-                                                    <input type="text"
-                                                           class="form-control @error('honors') is-invalid @enderror"
-                                                           name="honors" value="{{ old('honors') }}"
-                                                           id="honors"
-                                                           placeholder="Enter honors (if any)">
-                                                    @error('honors')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="club" class="form-label">Club</label>
-                                                    <input type="text"
-                                                           class="form-control @error('club') is-invalid @enderror"
-                                                           name="club" value="{{ old('club') }}"
-                                                           id="club"
-                                                           placeholder="Enter club name">
-                                                    @error('club')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
-                                                    <textarea type="text"
-                                                           class="form-control @error('address') is-invalid @enderror"
-                                                           name="address" value="{{ old('address') }}"
-                                                           id="address"
-                                                           placeholder="Enter address" required></textarea>
-                                                    @error('address')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
-                                                    <select class="form-control @error('country') is-invalid @enderror" name="country" id="country" required>
-                                                        <option value="">Select country</option>
-                                                    </select>
-                                                    @error('country')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                                                    <input type="email"
-                                                           class="form-control @error('email') is-invalid @enderror"
-                                                           name="email" value="{{ old('email', auth()->user()->email) }}"
-                                                           id="email"
-                                                           placeholder="Enter email" required>
-                                                    @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="telephone" class="form-label">Telephone <span class="text-danger">*</span></label>
-                                                    <input type="tel"
-                                                           class="form-control @error('telephone') is-invalid @enderror"
-                                                           name="telephone" value="{{ old('telephone') }}"
-                                                           id="telephone"
-                                                           placeholder="Enter telephone" required>
-                                                    @error('telephone')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                                <div class="mb-3">
-                                                    <button type="submit" class="btn btn-primary">Save</button>
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                                </div>
+                                                <h5 class="card-title mb-3">Update Profile</h5>
+                                                <form id="submitForm" @if(is_null(auth()->user()->profile))action="{{route('user_profile.store')}}" method="POST"
+                                                    @else action="{{route('user_profile.store',auth()->user()->profile->id)}}" method="PUT" @endif>
+                                                    @csrf
+                                                    <input type="hidden" id="id" name="id"
+                                                        @if(!is_null(auth()->user()->profile))value="{{auth()->user()->profile->id}}"@endif>
+                                                    <div class="mb-3">
+                                                        <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                                                        <select class="form-control @error('title') is-invalid @enderror" name="title" id="title" required>
+                                                            <option value="">Select Title</option>
+                                                            <option value="Dr." {{ old('title') == 'Dr.' ? 'selected' : '' }}>Dr.</option>
+                                                            <option value="Mr." {{ old('title') == 'Mr.' ? 'selected' : '' }}>Mr.</option>
+                                                            <option value="Mrs." {{ old('title') == 'Mrs.' ? 'selected' : '' }}>Mrs.</option>
+                                                            <option value="Ms." {{ old('title') == 'Ms.' ? 'selected' : '' }}>Ms.</option>
+                                                        </select>
+                                                        @error('title')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                                                        <input type="text"
+                                                            class="form-control @error('name') is-invalid @enderror"
+                                                            name="name" value="{{ old('name') }}"
+                                                            id="name"
+                                                            placeholder="Enter your name" required>
+                                                        @error('name')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="honors" class="form-label">Honors</label>
+                                                        <input type="text"
+                                                            class="form-control @error('honors') is-invalid @enderror"
+                                                            name="honors" value="{{ old('honors') }}"
+                                                            id="honors"
+                                                            placeholder="Enter honors (if any)">
+                                                        @error('honors')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="club" class="form-label">Club</label>
+                                                        <input type="text"
+                                                            class="form-control @error('club') is-invalid @enderror"
+                                                            name="club" value="{{ old('club') }}"
+                                                            id="club"
+                                                            placeholder="Enter club name">
+                                                        @error('club')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
+                                                        <textarea type="text"
+                                                            class="form-control @error('address') is-invalid @enderror"
+                                                            name="address" value="{{ old('address') }}"
+                                                            id="address"
+                                                            placeholder="Enter address" required></textarea>
+                                                        @error('address')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
+                                                        <select class="form-control @error('country') is-invalid @enderror" name="country" id="country" required>
+                                                            <option value="">Select country</option>
+                                                        </select>
+                                                        @error('country')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                                        <input type="email"
+                                                            class="form-control @error('email') is-invalid @enderror"
+                                                            name="email" value="{{ old('email', auth()->user()->email) }}"
+                                                            id="email"
+                                                            placeholder="Enter email" required>
+                                                        @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="telephone" class="form-label">Telephone <span class="text-danger">*</span></label>
+                                                        <input type="tel"
+                                                            class="form-control @error('telephone') is-invalid @enderror"
+                                                            name="telephone" value="{{ old('telephone') }}"
+                                                            id="telephone"
+                                                            placeholder="Enter telephone" required>
+                                                        @error('telephone')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                            <div class="col-xxl-2"></div>
+                                            <div class="col-xxl-5 d-flex justify-content-center align-items-center" style="min-height: 300px;">
+                                                <a href="{{ route('exhibition_entries.index') }}" class="btn btn-primary">Upload your entries</a>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!--end card-body-->
                                 </div><!-- end card -->

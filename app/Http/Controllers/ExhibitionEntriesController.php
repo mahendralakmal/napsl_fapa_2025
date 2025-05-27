@@ -37,16 +37,17 @@ class ExhibitionEntriesController extends Controller
         try {
             $request->validate([
                 'image_caption' => 'required|string|max:255',
-                'image' => 'required|image|mimes:jpg,jpeg,png|max:2048|dimensions:max_width=1920,max_height=1080',
-            ], [
-            'image_caption.required' => 'Title is required.',
-            'image_caption.max' => 'Title may not be greater than 255 characters.',
-            'image.required' => 'Image is required.',
-            'image.image' => 'The file must be an image.',
-            'image.mimes' => 'Image must be a file of type: jpeg.',
-            'image.max' => 'Image should not be larger than 2MB.',
-            'image.dimensions' => 'Image dimensions must not exceed 1920px width and 1080px height.',
-        ]);
+                'image' => 'required|image|mimes:jpg,jpeg|max:2048|dimensions:max_width=1920,max_height=1080',
+            ],
+            [
+                'image_caption.required' => 'Title is required.',
+                'image_caption.max' => 'Title may not be greater than 255 characters.',
+                'image.required' => 'Image is required.',
+                'image.image' => 'The file must be an image.',
+                'image.mimes' => 'Image must be a file of type: jpg, jpeg.',
+                'image.max' => 'Image should not be larger than 2MB.',
+                'image.dimensions' => 'Image dimensions must not exceed 1920px width and 1080px height.',
+            ]);
 
             $data = [
                 'exhibition_id' => 1, // or your logic
