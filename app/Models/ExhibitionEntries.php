@@ -21,4 +21,8 @@ class ExhibitionEntries extends Model
     public function exhibition(){
         return $this->belongsTo(Exhibition::class, 'exhibition_id', 'id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

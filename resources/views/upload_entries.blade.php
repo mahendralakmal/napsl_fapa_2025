@@ -35,30 +35,7 @@
 @endsection
 @section('content')
 
-    <div class="profile-foreground position-relative mx-n4 mt-n4">
-        <div class="profile-wid-bg">
-            <img src="{{ URL::asset('build/images/profile-bg.jpg') }}" alt="" class="profile-wid-img"/>
-        </div>
-    </div>
-    <div class="pt-4 mb-4 mb-lg-3 pb-lg-4 profile-wrapper">
-        <div class="row g-4">
-            <div class="col-auto">
-                <div class="avatar-lg">
-                    <img
-                        src="@if (Auth::user()->avatar != '') {{ URL::asset('images/' . Auth::user()->avatar) }}@else{{ URL::asset('build/images/users/avatar-1.jpg') }} @endif"
-                        alt="user-img" class="img-thumbnail rounded-circle"/>
-                </div>
-            </div>
-            <!--end col-->
-            <div class="col">
-                <div class="p-2">
-                    <h3 class="text-white mb-1 text-capitalize">@if(!is_null(auth()->user()->profile)){{auth()->user()->profile->first_name}} {{auth()->user()->profile->surname}}@else{{auth()->user()->name}}@endif</h3>
-                    <p class="text-white-75 text-capitalize">@if(!is_null(auth()->user()->profile)){{auth()->user()->profile->section}}@endif</p>
-                </div>
-            </div>
-        </div>
-        <!--end row-->
-    </div>
+
 
     <div class="row">
         <div class="col-lg-12">
@@ -81,7 +58,7 @@
                             <div class="col-xxl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        @foreach(['Open Monochrome', 'Open Color', 'World In Focus'] as $section)
+                                        @foreach(['Open Monochrome', 'Open Color'] as $section)
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <h5 class="mb-3" style="text-align: center;border-bottom: 1px solid #e5e5e5;padding-bottom: 12px;margin-top: 2rem;">{{ $section }}</h5>

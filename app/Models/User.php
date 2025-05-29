@@ -44,6 +44,14 @@ class User extends Authenticatable
     ];
 
     public function profile(){
-        return $this->hasOne(UserProfile::class);
+        return $this->hasOne(UserProfile::class, 'user_id', 'id');
+    }
+
+    public function fapa(){
+        return $this->hasOne(FapaInternationalAwards::class, 'user_id', 'id');
+    }
+
+    public function exhibitionEntries(){
+        return $this->hasMany(ExhibitionEntries::class);
     }
 }

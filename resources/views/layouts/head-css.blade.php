@@ -10,3 +10,19 @@
 <!-- custom Css-->
 <link href="{{ URL::asset('build/css/custom.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 {{-- @yield('css') --}}
+<style>
+    .page-header {
+        display: flex;
+        justify-content: center;
+        background-color: #bde4f7;
+        position: relative;
+        top: 4.5rem;
+    }
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 35px;
+        padding: 10px 0.75rem;
+    }
+</style>

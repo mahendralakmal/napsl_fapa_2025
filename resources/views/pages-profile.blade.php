@@ -8,30 +8,7 @@
 @endsection
 @section('content')
 
-    <div class="profile-foreground position-relative mx-n4 mt-n4">
-        <div class="profile-wid-bg">
-            <img src="{{ URL::asset('build/images/profile-bg.jpg') }}" alt="" class="profile-wid-img"/>
-        </div>
-    </div>
-    <div class="pt-4 mb-4 mb-lg-3 pb-lg-4 profile-wrapper">
-        <div class="row g-4">
-            <div class="col-auto">
-                <div class="avatar-lg">
-                    <img
-                        src="@if (Auth::user()->avatar != '') {{ URL::asset('images/' . Auth::user()->avatar) }}@else{{ URL::asset('build/images/users/avatar-1.jpg') }} @endif"
-                        alt="user-img" class="img-thumbnail rounded-circle"/>
-                </div>
-            </div>
-            <!--end col-->
-            <div class="col">
-                <div class="p-2">
-                    {{-- <h3 class="text-white mb-1 text-capitalize">@if(!is_null(auth()->user()->profile)){{auth()->user()->profile->first_name}} {{auth()->user()->profile->surname}}@else{{auth()->user()->name}}@endif</h3>
-                    <p class="text-white-75 text-capitalize">@if(!is_null(auth()->user()->profile)){{auth()->user()->profile->section}}@endif</p> --}}
-                </div>
-            </div>
-        </div>
-        <!--end row-->
-    </div>
+    
 
     <div class="row">
         <div class="col-lg-12">
@@ -239,17 +216,29 @@
         }
 
         $(document).ready(function() {
+            // List of allowed country names (case-insensitive)
+            const allowedCountries = [
+                "Australia", "Bangladesh", "Bhutan", "Brunei", "China", "Hong Kong", "India", "Indonesia", "Japan",
+                "Korea", "Macao", "Malaysia", "Mauritius", "Myanmar", "Nepal", "Pakistan", "Philippines", "Singapore",
+                "Sri Lanka", "Taiwan", "Thailand", "USA", "Vietnam"
+            ];
+
             // Fetch countries from restcountries.com
             $.ajax({
                 url: 'https://restcountries.com/v3.1/all',
                 method: 'GET',
                 success: function(data) {
-                    countries = data.map(c => ({
-                        id: c.cca2,
-                        text: `${c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : ''} ${c.name.common}`,
-                        dial_code: c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : '',
-                        flag: c.flags && c.flags.png ? c.flags.png : ''
-                    })).filter(c => c.dial_code.trim() !== '');
+                    countries = data
+                        .filter(c => allowedCountries.some(name =>
+                            c.name.common.toLowerCase() === name.toLowerCase()
+                        ))
+                        .map(c => ({
+                            id: c.name.common,
+                            text: `${c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : ''} ${c.name.common}`,
+                            dial_code: c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : '',
+                            flag: c.flags && c.flags.png ? c.flags.png : ''
+                        }))
+                        .filter(c => c.dial_code.trim() !== '');
 
                     $('#country').select2({
                         data: countries,
@@ -288,7 +277,7 @@
                         // For country, set after Select2 is initialized and countries are loaded
                         let setCountry = function() {
                             if ($('#country').hasClass("select2-hidden-accessible")) {
-                                $('#country').val(profile.country).trigger('change');
+                                $('#country').val(profile.country).trigger('change'); // profile.country should be the full country name
                             } else {
                                 setTimeout(setCountry, 100);
                             }

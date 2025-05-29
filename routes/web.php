@@ -3,6 +3,7 @@
 use App\Http\Controllers\ExhibitionEntriesController;
 use App\Http\Controllers\FapaInternationalAwardsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::post('upload_image/{id}', [ExhibitionEntriesController::class, 'update'])->name('upload_image.update');
     Route::get('/user-entries', [ExhibitionEntriesController::class, 'userEntries'])->name('user_entries');
     Route::resource('upload_image', ExhibitionEntriesController::class)->names('exhibition_entries');
-    // Route::post('upload_image', [ExhibitionEntriesController::class, 'store'])->name('upload_image');
+    Route::resource('status', StatusController::class)->names('status');
 });
 
 Route::get('{any}', [HomeController::class, 'index'])->name('index');

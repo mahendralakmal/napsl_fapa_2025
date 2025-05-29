@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Home
+    Status
 @endsection
 @section('css')
     <link href="{{ URL::asset('build/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -24,9 +24,34 @@
     </style>
 @endsection
 @section('content')
-
-
-
+    <div class="card mt-5">
+        <div class="card-body">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Candidate</th>
+                        <th>Country</th>
+                        @foreach ($sections as $section)
+                            <th>{{ $section }}</th>
+                        @endforeach
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($entries as $entry)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>({{ $entry->honors}}) {{ $entry->title}}{{ $entry->name}}</td>
+                            <td>{{ $entry->country}}</td>
+                            <td>{{ $entry->open_monochrome_count}}</td>
+                            <td>{{ $entry->open_color_count}}</td>
+                            {{-- <td>{{ $entry->world_in_focus_count}}</td> --}}
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
 @section('script')
     <!-- apexcharts -->
