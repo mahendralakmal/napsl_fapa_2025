@@ -65,9 +65,10 @@
     }
 
     #page-topbar {
-        background-color: #0202510a !important;
-        border-bottom: 1px solid #dee2e600 !important;
-        box-shadow: 0 5px 5px #29282800 !important;
+        background-color: #020251 !important;
+        border-bottom: 1px solid #dee2e6 !important;
+        box-shadow: 0 5px 5px #2928283d !important;
+        position: relative;
     }
     #page-topbar,
     #page-topbar * {
