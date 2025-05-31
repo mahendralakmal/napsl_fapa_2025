@@ -8,12 +8,12 @@
 @endsection
 @section('content')
 
-    
+
 
     <div class="row">
         <div class="col-lg-12">
             <div>
-                <div class="d-flex profile-wrapper">
+                {{-- <div class="d-flex profile-wrapper">
                     <!-- Nav tabs -->
                     <ul class="nav nav-pills animation-nav profile-nav gap-2 gap-lg-3 flex-grow-1" role="tablist">
                         <li class="nav-item">
@@ -23,9 +23,9 @@
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
                 <!-- Tab panes -->
-                <div class="tab-content pt-4 text-muted">
+                <div class="tab-content text-muted">
                     <div class="tab-pane active" id="overview-tab" role="tabpanel">
                         <div class="row">
                             {{-- <div class="col-xxl-3">

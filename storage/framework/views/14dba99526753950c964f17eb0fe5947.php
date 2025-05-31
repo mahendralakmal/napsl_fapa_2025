@@ -1,5 +1,5 @@
 <?php $__env->startSection('title'); ?>
-    Rules & Regulations
+    Home
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('css'); ?>
     <link href="<?php echo e(URL::asset('build/libs/jsvectormap/css/jsvectormap.min.css')); ?>" rel="stylesheet" type="text/css"/>
@@ -23,6 +23,8 @@
     </style>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
+
+
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>

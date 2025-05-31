@@ -24,7 +24,7 @@
     </style>
 @endsection
 @section('content')
-    <div class="card mt-5">
+    <div class="card ">
         <div class="card-body">
             <table class="table table-striped table-bordered">
                 <thead>

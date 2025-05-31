@@ -1,4 +1,5 @@
-<header id="page-topbar" style="border-bottom: 1px solid #dee2e600 !important; box-shadow:0 5px 5px #29282829 !important; background-color: #020251 !important;">
+<header id="page-topbar">
+    <!-- style="border-bottom: 1px solid #dee2e600 !important; box-shadow:0 5px 5px #29282829 !important; background-color: #020251 !important;"> -->
     <div class="layout-width">
         <div class="navbar-header">
             <div class="d-flex">
@@ -29,7 +30,7 @@
                                 <a class="nav-link" href="#">Payment</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Status</a>
+                                <a class="nav-link" href="<?php echo e(route('status.index')); ?>">Status</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Contact</a>

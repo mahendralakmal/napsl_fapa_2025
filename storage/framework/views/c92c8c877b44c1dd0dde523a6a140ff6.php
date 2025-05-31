@@ -7,46 +7,14 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
 
-    <div class="profile-foreground position-relative mx-n4 mt-n4">
-        <div class="profile-wid-bg">
-            <img src="<?php echo e(URL::asset('build/images/profile-bg.jpg')); ?>" alt="" class="profile-wid-img"/>
-        </div>
-    </div>
-    <div class="pt-4 mb-4 mb-lg-3 pb-lg-4 profile-wrapper">
-        <div class="row g-4">
-            <div class="col-auto">
-                <div class="avatar-lg">
-                    <img
-                        src="<?php if(Auth::user()->avatar != ''): ?> <?php echo e(URL::asset('images/' . Auth::user()->avatar)); ?><?php else: ?><?php echo e(URL::asset('build/images/users/avatar-1.jpg')); ?> <?php endif; ?>"
-                        alt="user-img" class="img-thumbnail rounded-circle"/>
-                </div>
-            </div>
-            <!--end col-->
-            <div class="col">
-                <div class="p-2">
-                    
-                </div>
-            </div>
-        </div>
-        <!--end row-->
-    </div>
+
 
     <div class="row">
         <div class="col-lg-12">
             <div>
-                <div class="d-flex profile-wrapper">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-pills animation-nav profile-nav gap-2 gap-lg-3 flex-grow-1" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link fs-14 active" data-bs-toggle="tab" href="#overview-tab" role="tab">
-                                <i class="ri-airplay-fill d-inline-block d-md-none"></i> <span
-                                    class="d-none d-md-inline-block">Profile</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                
                 <!-- Tab panes -->
-                <div class="tab-content pt-4 text-muted">
+                <div class="tab-content text-muted">
                     <div class="tab-pane active" id="overview-tab" role="tabpanel">
                         <div class="row">
                             
@@ -321,17 +289,29 @@ unset($__errorArgs, $__bag); ?>
         }
 
         $(document).ready(function() {
+            // List of allowed country names (case-insensitive)
+            const allowedCountries = [
+                "Australia", "Bangladesh", "Bhutan", "Brunei", "China", "Hong Kong", "India", "Indonesia", "Japan",
+                "Korea", "Macao", "Malaysia", "Mauritius", "Myanmar", "Nepal", "Pakistan", "Philippines", "Singapore",
+                "Sri Lanka", "Taiwan", "Thailand", "USA", "Vietnam"
+            ];
+
             // Fetch countries from restcountries.com
             $.ajax({
                 url: 'https://restcountries.com/v3.1/all',
                 method: 'GET',
                 success: function(data) {
-                    countries = data.map(c => ({
-                        id: c.cca2,
-                        text: `${c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : ''} ${c.name.common}`,
-                        dial_code: c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : '',
-                        flag: c.flags && c.flags.png ? c.flags.png : ''
-                    })).filter(c => c.dial_code.trim() !== '');
+                    countries = data
+                        .filter(c => allowedCountries.some(name =>
+                            c.name.common.toLowerCase() === name.toLowerCase()
+                        ))
+                        .map(c => ({
+                            id: c.name.common,
+                            text: `${c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : ''} ${c.name.common}`,
+                            dial_code: c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : '',
+                            flag: c.flags && c.flags.png ? c.flags.png : ''
+                        }))
+                        .filter(c => c.dial_code.trim() !== '');
 
                     $('#country').select2({
                         data: countries,
@@ -370,7 +350,7 @@ unset($__errorArgs, $__bag); ?>
                         // For country, set after Select2 is initialized and countries are loaded
                         let setCountry = function() {
                             if ($('#country').hasClass("select2-hidden-accessible")) {
-                                $('#country').val(profile.country).trigger('change');
+                                $('#country').val(profile.country).trigger('change'); // profile.country should be the full country name
                             } else {
                                 setTimeout(setCountry, 100);
                             }

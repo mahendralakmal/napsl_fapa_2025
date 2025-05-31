@@ -24,7 +24,7 @@
     </style>
 @endsection
 @section('content')
-    <div class="container mt-4 bg-white p-5 rounded shadow">
+    <div class="container bg-white p-5 rounded shadow">
         <h2 class="mb-3">FAPA Awards 2025</h2>
         <p>
             In view of the 28th FAPA International Congress held in Sri Lanka, this photographic competition is organized by the National Association of Photographers-Sri Lanka (NAPSL) and the Federation of Asian Photographic Art (FAPA).
