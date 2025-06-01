@@ -233,7 +233,7 @@
             const allowedCountries = [
                 "Australia", "Bangladesh", "Bhutan", "Brunei", "China", "Hong Kong", "India", "Indonesia", "Japan",
                 "Korea", "Macao", "Malaysia", "Mauritius", "Myanmar", "Nepal", "Pakistan", "Philippines", "Singapore",
-                "Sri Lanka", "Taiwan", "Thailand", "USA", "Vietnam"
+                "Sri Lanka", "Taiwan", "Thailand", "USA", "Vietnam","South Korea"
             ];
 
             // Fetch countries from restcountries.com
