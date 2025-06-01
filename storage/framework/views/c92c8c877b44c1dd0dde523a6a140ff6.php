@@ -247,14 +247,26 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <button type="submit" class="btn btn-primary">Save</button>
-                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="accept_rules" name="accept_rules" required>
+                                                            <label class="form-check-label" for="accept_rules">
+                                                                I accept the rules and conditions of the competition
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <button type="submit" class="btn btn-primary" id="saveBtn" disabled>Save</button>
+                                                        
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="col-xxl-2"></div>
                                             <div class="col-xxl-5 d-flex justify-content-center align-items-center" style="min-height: 300px;">
-                                                <a href="<?php echo e(route('exhibition_entries.index')); ?>" class="btn btn-primary">Upload your entries</a>
+                                                <a href="<?php echo e(route('exhibition_entries.index')); ?>"
+                                                   class="btn btn-primary<?php echo e(is_null(auth()->user()->fapa) ? ' disabled' : ''); ?>"
+                                                   <?php echo e(is_null(auth()->user()->fapa) ? 'tabindex="-1" aria-disabled="true"' : ''); ?>>
+                                                    Upload your entries
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -358,6 +370,11 @@ unset($__errorArgs, $__bag); ?>
                         setCountry();
                     }
                 }
+            });
+
+            // Enable Save button only if checkbox is checked
+            $('#accept_rules').on('change', function() {
+                $('#saveBtn').prop('disabled', !this.checked);
             });
         });
     </script>

@@ -72,7 +72,7 @@
     }
     #page-topbar,
     #page-topbar * {
-        color: #ffffff !important;
+        color: #ffffff;
         font-weight: bold !important;
         /* text-shadow:
             -.5px -.5px 0 #585858,
@@ -93,11 +93,17 @@
 
     .dropdown-menu {
         background-color: #ffffff !important;
-        color: #212529 !important; /* or use #343a40 for darker text */
+        height: 10rem !important;
+        min-height: 10rem;
+    }
+    .dropdown-header{
+        color: #212529 !important;
     }
 
     .dropdown-menu a,
-    .dropdown-menu .dropdown-item {
+    .dropdown-menu .dropdown-item,
+    .align-middle,
+    .t-logout {
         color: #212529 !important; /* Ensures links/items are also dark */
     }
 
@@ -105,6 +111,11 @@
     .dropdown-menu .dropdown-item:hover {
         background-color: #f1f1f1 !important;
         color: #000000 !important;
+    }
+
+    .bx-power-off {
+        position: relative;
+        top: 10px;
     }
 </style>
 <?php /**PATH /var/www/napsl_ex/resources/views/layouts/head-css.blade.php ENDPATH**/ ?>

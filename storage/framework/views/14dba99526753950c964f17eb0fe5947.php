@@ -39,7 +39,6 @@
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7"></button>
-            
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -63,7 +62,6 @@
             <div class="carousel-item">
                 <img src="<?php echo e(asset('images/carusel/FAPA Web 7.jpg')); ?>" class="d-block w-100" alt="Image 3">
             </div>
-            
             <div class="carousel-item">
                 <img src="<?php echo e(asset('images/carusel/FAPA Web 9.jpg')); ?>" class="d-block w-100" alt="Image 3">
             </div>
