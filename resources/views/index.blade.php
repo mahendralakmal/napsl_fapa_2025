@@ -5,6 +5,8 @@
 @section('css')
     <link href="{{ URL::asset('build/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
     <style>
         .btn {
             display: inline-block;
@@ -22,57 +24,77 @@
             background-color: #0056b3;
         }
 
-        /* .carousel-item {
-            width: 50% !important;
-            height: auto;
-        } */
+        #carouselExampleIndicators {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .carousel-inner {
+            height: 400px; /* Set your desired height */
+        }
+
+        .carousel-inner .carousel-item img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .owl-carousel .item img {
+            width: 800px;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* Center dots below the image */
+        .owl-dots {
+            text-align: center;
+            margin-top: 10px;
+            position: relative;
+            bottom: 35px!important;
+        }
+        .owl-dot span {
+            width: 14px;
+            height: 14px;
+            background: #bbb;
+            display: inline-block;
+            border-radius: 50%;
+            margin: 5px 4px;
+            transition: background 0.3s;
+        }
+        .owl-dot.active span {
+            background: #007bff;
+        }
     </style>
 @endsection
 @section('content')
-<div class="d-flex justify-content-center">
-    <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7"></button>
+<div>
+    <div class="owl-carousel owl-theme">
+        <div class="item">
+            <img src="{{ asset('images/carusel/FAPA Web 1.jpg') }}" alt="Image 1" class="img-fluid mx-auto d-block">
         </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{{ asset('images/carusel/FAPA Web 1.jpg') }}" class="d-block w-100" alt="Image 1">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('images/carusel/FAPA Web 2.jpg') }}" class="d-block w-100" alt="Image 2">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('images/carusel/FAPA Web 3.jpg') }}" class="d-block w-100" alt="Image 3">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('images/carusel/FAPA Web 4.jpg') }}" class="d-block w-100" alt="Image 3">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('images/carusel/FAPA Web 5.jpg') }}" class="d-block w-100" alt="Image 3">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('images/carusel/FAPA Web 6.jpg') }}" class="d-block w-100" alt="Image 3">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('images/carusel/FAPA Web 7.jpg') }}" class="d-block w-100" alt="Image 3">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('images/carusel/FAPA Web 9.jpg') }}" class="d-block w-100" alt="Image 3">
-            </div>
+        <div class="item">
+            <img src="{{ asset('images/carusel/FAPA Web 2.jpg') }}" alt="Image 2" class="img-fluid mx-auto d-block">
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
+        <div class="item">
+            <img src="{{ asset('images/carusel/FAPA Web 3.jpg') }}" alt="Image 3" class="img-fluid mx-auto d-block">
+        </div>
+        <div class="item">
+            <img src="{{ asset('images/carusel/FAPA Web 4.jpg') }}" alt="Image 4" class="img-fluid mx-auto d-block">
+        </div>
+        <div class="item">
+            <img src="{{ asset('images/carusel/FAPA Web 5.jpg') }}" alt="Image 5" class="img-fluid mx-auto d-block">
+        </div>
+        <div class="item">
+            <img src="{{ asset('images/carusel/FAPA Web 6.jpg') }}" alt="Image 6" class="img-fluid mx-auto d-block">
+        </div>
+        <div class="item">
+            <img src="{{ asset('images/carusel/FAPA Web 7.jpg') }}" alt="Image 7" class="img-fluid mx-auto d-block">
+        </div>
+        <div class="item">
+            <img src="{{ asset('images/carusel/FAPA Web 9.jpg') }}" alt="Image 8" class="img-fluid mx-auto d-block">
+        </div>
     </div>
 </div>
 @endsection
@@ -85,4 +107,22 @@
     <!-- dashboard init -->
     <script src="{{ URL::asset('build/js/pages/dashboard-ecommerce.init.js') }}"></script>
     <script src="{{ URL::asset('build/js/app.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      $('.owl-carousel').owlCarousel({
+          items:1,
+          loop:true,
+          margin:0,
+          nav:false,
+          dots:true,
+          animateOut: 'fadeOut',
+          animateIn: 'fadeIn',
+          autoplay:true,
+          autoplayTimeout:3000,
+          autoplayHoverPause:true
+      });
+    });
+    </script>
 @endsection
