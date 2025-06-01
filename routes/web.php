@@ -23,6 +23,8 @@ Auth::routes();
 
 Route::get('/', function (){ return view('index');})->name('root');
 Route::get('/entry-rules', function (){ return view('rules');})->name('entry-rules');
+Route::get('/payment', function (){ return view('payment');})->name('payment');
+Route::get('/contact', function (){ return view('contact');})->name('contact');
 
 //Update User Details
 Route::group(['middleware' => 'auth'], function () {

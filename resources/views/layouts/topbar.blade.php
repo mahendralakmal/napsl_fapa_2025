@@ -45,13 +45,13 @@
                                 <a class="nav-link" href="{{ url('pages-profile') }}">Entry Form</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Payment</a>
+                                <a class="nav-link" href="{{ url('payment') }}">Payment</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('status.index') }}">Status</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
+                                <a class="nav-link" href="{{ route('contact') }}">Contact</a>
                             </li>
                         </ul>
                     </div>

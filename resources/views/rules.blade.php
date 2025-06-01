@@ -36,14 +36,14 @@
         </ol>
         <h4>Awards:</h4>
         <p>
-            FAPA and NAPSL Gold, Silver and Bronze Medals and Five Honorable Mentions will be awarded to the winners of each section. Exhibition of the awarded and accepted images will be held in Sri Lanka during the FAPA Congress period.
+            FAPA, NAPSL and PIPC Gold, Silver and Bronze Medals and Five Honorable Mentions will be awarded to the winners of each section. Exhibition of the awarded and accepted images will be held in Sri Lanka during the FAPA 28th Congress period.
         </p>
         <h4>Conditions of Entry:</h4>
         <ul>
             <li>Competition is open to all photographers in the FAPA member countries.</li>
             <li>Entries in digital format will be accepted for the competition.</li>
             <li>Each entrant can submit only 04 images for each section.</li>
-            <li>The images in sRGB color space and <strong>jpeg</strong> file format can be uploaded directly to the following link or emailed to <a href="mailto:napslexhibition@gmail.com">napslexhibition@gmail.com</a>.</li>
+            <li>The images in sRGB color space and <strong>jpeg</strong> file format can be uploaded directly to the following link or emailed to <a href="mailto:napslexhibition@napsl.com">napslexhibition@napsl.com</a>.</li>
             <li>Dimension: Maximum horizontal length <strong>1920</strong> pixels, vertical <strong>1080</strong> pixels.</li>
             <li>File size: should not exceed <strong>2 MB</strong> per image.</li>
             <li>AI generated images will not be accepted.</li>
@@ -53,14 +53,11 @@
         <h4>Entry Fee:</h4>
         <ul>
             <li>USD 5.00 for one section</li>
-            <li>USD 10.00 for both sections</li>
+            <li>USD 8.00 for both sections</li>
+            <li><strong>Local (Sri Lankan) Entrants:</strong> LKR 1500 for one section &amp; LKR 2500 for both sections</li>
         </ul>
-        <p><strong>Closing Date:</strong> 30th of June</p>
-        {{-- <div class="flex justify-center mt-4">
-            <a href="/login" class="btn btn-primary">REGISTER &amp; ENTRY</a>
-        </div> --}}
+        <p><strong>Closing Date:</strong> <span style="color: rgb(255 0 0) !important; font-size: large; font-weight: bold;">30th of June 2025</span></p>
     </div>
-
 @endsection
 @section('script')
     <!-- apexcharts -->

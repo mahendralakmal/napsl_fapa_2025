@@ -27,13 +27,13 @@
                                 <a class="nav-link" href="<?php echo e(url('pages-profile')); ?>">Entry Form</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Payment</a>
+                                <a class="nav-link" href="<?php echo e(url('payment')); ?>">Payment</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo e(route('status.index')); ?>">Status</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
+                                <a class="nav-link" href="<?php echo e(route('contact')); ?>">Contact</a>
                             </li>
                         </ul>
                     </div>

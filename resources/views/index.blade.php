@@ -40,7 +40,6 @@
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7"></button>
-            {{-- <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="8"></button> --}}
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -64,12 +63,6 @@
             <div class="carousel-item">
                 <img src="{{ asset('images/carusel/FAPA Web 7.jpg') }}" class="d-block w-100" alt="Image 3">
             </div>
-            {{-- <div class="carousel-item">
-                <div class="d-flex">
-                    <img src="{{ asset('images/carusel/FAPA Web 8.jpg') }}" class="d-block w-100" alt="Image 3">
-                    <img src="{{ asset('images/carusel/FAPA Web 10.jpg') }}" class="d-block w-100" alt="Image 3">
-                </div>
-            </div> --}}
             <div class="carousel-item">
                 <img src="{{ asset('images/carusel/FAPA Web 9.jpg') }}" class="d-block w-100" alt="Image 3">
             </div>
