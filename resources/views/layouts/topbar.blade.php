@@ -1,29 +1,7 @@
 <header id="page-topbar">
-    <!-- style="border-bottom: 1px solid #dee2e600 !important; box-shadow:0 5px 5px #29282829 !important; background-color: #020251 !important;"> -->
     <div class="layout-width">
         <div class="navbar-header">
             <div class="d-flex">
-                <!-- LOGO -->
-                {{-- <div class="navbar-brand-box horizontal-logo">
-                    <a href="index" class="logo logo-dark">
-                        <span class="logo-sm">
-                            <img src="{{ URL::asset('build/images/logo-sm.png') }}" alt="" height="22">
-                        </span>
-                        <span class="logo-lg">
-                            <img src="{{ URL::asset('build/images/logo-dark.png') }}" alt="" height="17">
-                        </span>
-                    </a>
-
-                    <a href="index" class="logo logo-light">
-                        <span class="logo-sm">
-                            <img src="{{ URL::asset('build/images/logo-sm.png') }}" alt="" height="22">
-                        </span>
-                        <span class="logo-lg">
-                            <img src="{{ URL::asset('build/images/logo-light.png') }}" alt="" height="17">
-                        </span>
-                    </a>
-                </div> --}}
-
                 <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
                     <span class="hamburger-icon">
                         <span></span>
@@ -57,6 +35,56 @@
                     </div>
                 </nav>
             <div class="d-flex align-items-center">
+                <div class="timer" style="font-weight:bold; font-size:1.1em; width:150px; padding-top:8px;"></div>
+                {{-- Countdown Timer Script --}}
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const timerElement = document.querySelector('.timer');
+                        // Set the end date: 30 June 2025 23:59:59
+                        const endDate = new Date('2025-06-30T23:59:59');
+                        function getGradientColor(daysLeft) {
+                            // 15 days left: yellow (#FFFF00), 0 days left: red (#FF0000)
+                            if (daysLeft > 15) return "#00fa39"; // Bootstrap green
+                            if (daysLeft <= 3) return "#FF0000"; // Red for last 3 days
+                            // Interpolate between yellow and red
+                            // yellow: rgb(255,255,0), red: rgb(255,0,0)
+                            const ratio = daysLeft / 15;
+                            const g = Math.round(255 * ratio);
+                            return `rgb(255,${g},0)`;
+                        }
+                        function updateTimer() {
+                            const now = new Date();
+                            let diff = endDate - now;
+                            let days = 0, hours = 0, minutes = 0, seconds = 0;
+                            if (diff > 0) {
+                                days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                                minutes = Math.floor((diff / (1000 * 60)) % 60);
+                                seconds = Math.floor((diff / 1000) % 60);
+                            }
+                            timerElement.textContent =
+                                days.toString().padStart(2, '0') + " d " +
+                                hours.toString().padStart(2, '0') + " h " +
+                                minutes.toString().padStart(2, '0') + " m " +
+                                seconds.toString().padStart(2, '0') + " s";
+                                // days.toString().padStart(2, '0') + " days " +
+                                // hours.toString().padStart(2, '0') + "hours " +
+                                // minutes.toString().padStart(2, '0') + "minutes " +
+                                // seconds.toString().padStart(2, '0') + "seconds";
+                            // Set color
+                            if (diff > 0) {
+                                timerElement.style.color = getGradientColor(days);
+                            } else {
+                                timerElement.style.color = "#FF0000";
+                                timerElement.textContent = "00 d 00 h 00 m 00 s";
+                                // timerElement.textContent = "00 days 00hours 00minutes 00seconds";
+                                clearInterval(interval);
+                            }
+                        }
+                        updateTimer();
+                        const interval = setInterval(updateTimer, 1000);
+                    });
+                </script>
                 @if (Auth::user())
                 <div class="dropdown ms-sm-3 header-item" >
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,3 +111,12 @@
         </div>
     </div>
 </header>
+
+@section('script')
+
+@parent
+<script>
+    var navbarMenuElement = document.querySelector(".navbar-menu");
+    var navbarMenuHTML = navbarMenuElement ? navbarMenuElement.innerHTML : "";
+</script>
+@endsection
