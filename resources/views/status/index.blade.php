@@ -29,12 +29,14 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Candidate</th>
+                        <th>Index No.</th>
+                        <th>Author</th>
                         <th>Country</th>
-                        @foreach ($sections as $section)
+                        <th>Open Monochrome</th>
+                        <th>Open Color</th>
+                        {{-- @foreach ($sections as $section)
                             <th>{{ $section }}</th>
-                        @endforeach
+                        @endforeach --}}
                     </tr>
                 </thead>
                 <tbody>
