@@ -25,20 +25,16 @@ Route::get('/', function (){ return view('index');})->name('root');
 Route::get('/entry-rules', function (){ return view('rules');})->name('entry-rules');
 Route::get('/payment', function (){ return view('payment');})->name('payment');
 Route::get('/contact', function (){ return view('contact');})->name('contact');
+Route::resource('status', StatusController::class)->names('status');
 
 //Update User Details
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/update-profile/{id}', [HomeController::class, 'updateProfile'])->name('updateProfile');
     Route::post('/update-password/{id}', [HomeController::class, 'updatePassword'])->name('updatePassword');
-
-
     Route::get('/profile', [FapaInternationalAwardsController::class, 'showProfile'])->name('profile.show');
     Route::resource('user_profile', FapaInternationalAwardsController::class)->names('user_profile');
-    // Route::resource('user_profile', UserProfileController::class)->names('user_profile');
-    // Route::post('upload_image/{id}', [ExhibitionEntriesController::class, 'update'])->name('upload_image.update');
     Route::get('/user-entries', [ExhibitionEntriesController::class, 'userEntries'])->name('user_entries');
     Route::resource('upload_image', ExhibitionEntriesController::class)->names('exhibition_entries');
-    Route::resource('status', StatusController::class)->names('status');
 });
 
 Route::get('{any}', [HomeController::class, 'index'])->name('index');
