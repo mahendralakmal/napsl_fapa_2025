@@ -63,7 +63,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-xxl-5">
-                                                <h5 class="card-title mb-3">Update Profile</h5>
+                                                <h5 class="card-title mb-3">Entry Form</h5>
                                                 <form id="submitForm" @if(is_null(auth()->user()->profile))action="{{route('user_profile.store')}}" method="POST"
                                                     @else action="{{route('user_profile.store',auth()->user()->profile->id)}}" method="PUT" @endif>
                                                     @csrf
@@ -182,7 +182,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <button type="submit" class="btn btn-primary" id="saveBtn" disabled>Save</button>
+                                                        <button type="submit" class="btn btn-primary" id="saveBtn" disabled>Submit</button>
                                                         {{-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> --}}
                                                     </div>
                                                 </form>
@@ -194,6 +194,7 @@
                                                    {{ is_null(auth()->user()->fapa) ? 'tabindex="-1" aria-disabled="true"' : '' }}>
                                                     Upload your entries
                                                 </a>
+                                                @if(is_null(auth()->user()->fapa))<p style="color: rgb(255 0 0) !important; font-size: large; font-weight: bold;position: absolute;margin-top: 90px;">Please submit the entry form.</p>@endif
                                             </div>
                                         </div>
                                     </div>
