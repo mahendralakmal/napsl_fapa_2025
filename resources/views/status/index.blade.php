@@ -29,11 +29,12 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th style="width:5%">Index No.</th>
+                        <th style="width:5%;text-align: center;">Index No.</th>
                         <th>Author</th>
                         <th>Country</th>
-                        <th style="width:10%">Open Monochrome</th>
-                        <th style="width:10%">Open Color</th>
+                        <th style="width:10%;text-align: center;">Open Monochrome</th>
+                        <th style="width:10%;text-align: center;">Open Color</th>
+                        <th style="width:10%;text-align: center;">Payment</th>
                         {{-- @foreach ($sections as $section)
                             <th>{{ $section }}</th>
                         @endforeach --}}
@@ -42,12 +43,12 @@
                 <tbody>
                     @foreach($entries as $entry)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td style="text-align: center;">{{ $loop->iteration }}</td>
                             <td>{{ $entry->title}}{{ $entry->name}} ({{ $entry->honors}})</td>
                             <td>{{ $entry->country}}</td>
-                            <td>{{ $entry->open_monochrome_count}}</td>
-                            <td>{{ $entry->open_color_count}}</td>
-                            {{-- <td>{{ $entry->world_in_focus_count}}</td> --}}
+                            <td style="text-align: center;">{{ $entry->open_monochrome_count}}</td>
+                            <td style="text-align: center;">{{ $entry->open_color_count}}</td>
+                            <td style="text-align: center;"></td>
                         </tr>
                     @endforeach
                 </tbody>

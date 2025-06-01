@@ -117,4 +117,15 @@
         position: relative;
         top: 10px;
     }
+
+    .entry-title{
+        text-align: center;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 12px;
+        margin-top: 2rem;
+        background-color: #2781d9;
+        color: #ffffff;
+        padding: 7px;
+        margin-block-start: auto;
+    }
 </style>

@@ -194,7 +194,7 @@
                                                    {{ is_null(auth()->user()->fapa) ? 'tabindex="-1" aria-disabled="true"' : '' }}>
                                                     Upload your entries
                                                 </a>
-                                                @if(is_null(auth()->user()->fapa))<p style="color: rgb(255 0 0) !important; font-size: large; font-weight: bold;position: absolute;margin-top: 90px;">Please submit the entry form.</p>@endif
+                                                @if(is_null(auth()->user()->fapa))<p style="color: rgb(255 0 0) !important; font-size: x-small; font-weight: bold;position: absolute;margin-top: 90px;">Please submit the entry form.</p>@endif
                                             </div>
                                         </div>
                                     </div>

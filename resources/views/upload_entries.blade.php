@@ -34,37 +34,24 @@
     </style>
 @endsection
 @section('content')
-
-
-
     <div class="row">
         <div class="col-lg-12">
             <div>
-                <div class="d-flex profile-wrapper">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-pills animation-nav profile-nav gap-2 gap-lg-3 flex-grow-1" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link fs-14 active" data-bs-toggle="tab" href="#overview-tab" role="tab">
-                                <i class="ri-airplay-fill d-inline-block d-md-none"></i> <span
-                                    class="d-none d-md-inline-block">Upload Images</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
                 <!-- Tab panes -->
-                <div class="tab-content pt-4 text-muted">
+                <div class="tab-content text-muted">
                     <div class="tab-pane active" id="overview-tab" role="tabpanel">
                         <div class="row">
                             <div class="col-xxl-12">
                                 <div class="card">
-                                    <div class="card-body">
+                                    <div class="card-header"><h2>Upload Images</h2></div>
+                                    <div class="card-body" style="padding: 0rem;">
                                         @foreach(['Open Monochrome', 'Open Color'] as $section)
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <h5 class="mb-3" style="text-align: center;border-bottom: 1px solid #e5e5e5;padding-bottom: 12px;margin-top: 2rem;">{{ $section }}</h5>
+                                            {{-- <div class="row">
+                                                <div class="col-md-12"> --}}
+                                                    <h3 class="mb-3 entry-title">{{ $section }}</h3>
                                                     <div class="row">
                                                         @for($i = 1; $i <= 4; $i++)
-                                                            <div class="col-xxl-6">
+                                                            <div class="col-xxl-6" style="padding: 2rem;">
                                                                 <form class="myForm mb-4" enctype="multipart/form-data" method="POST"
                                                                     data-section="{{ $section }}"
                                                                     data-count="{{ $i }}" action="{{ route('exhibition_entries.store') }}">
@@ -92,8 +79,8 @@
                                                             </div>
                                                         @endfor
                                                     </div>
-                                                </div>
-                                            </div>
+                                                {{-- </div>
+                                            </div> --}}
                                         @endforeach
                                     </div>
                                 </div>
