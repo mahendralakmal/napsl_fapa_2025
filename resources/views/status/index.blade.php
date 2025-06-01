@@ -32,8 +32,8 @@
                         <th>Index No.</th>
                         <th>Author</th>
                         <th>Country</th>
-                        <th>Open Monochrome</th>
-                        <th>Open Color</th>
+                        <th style="width:10%">Open Monochrome</th>
+                        <th style="width:10%">Open Color</th>
                         {{-- @foreach ($sections as $section)
                             <th>{{ $section }}</th>
                         @endforeach --}}
@@ -43,7 +43,7 @@
                     @foreach($entries as $entry)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>({{ $entry->honors}}) {{ $entry->title}}{{ $entry->name}}</td>
+                            <td>{{ $entry->title}}{{ $entry->name}} ({{ $entry->honors}})</td>
                             <td>{{ $entry->country}}</td>
                             <td>{{ $entry->open_monochrome_count}}</td>
                             <td>{{ $entry->open_color_count}}</td>
