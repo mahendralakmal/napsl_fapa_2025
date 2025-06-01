@@ -29,7 +29,7 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Index No.</th>
+                        <th style="width:5%">Index No.</th>
                         <th>Author</th>
                         <th>Country</th>
                         <th style="width:10%">Open Monochrome</th>
