@@ -128,4 +128,37 @@
         padding: 7px;
         margin-block-start: auto;
     }
+
+    .hamburger-icon span {
+        background-color: #e9ebec;
+        max-height: 2px;
+    }
+
+    .hamburger-icon span:nth-child(1) {
+        top: 10px;
+        width: 100% !important;
+    }
+
+    .hamburger-icon span:nth-child(2) {
+        top: 16px;
+        width: 100% !important;
+    }
+
+    .hamburger-icon span:nth-child(3) {
+        bottom: 11px;
+        width: 100% !important;
+    }
+
+    nav.navbar.navbar-expand-md.navbar-light {
+        width: 140px;
+        min-height: 300px;
+        position: absolute;
+        top: 20px;
+    }
+
+    #navbarSupportedContent {
+        background-color: #09004f;
+        padding: 0 10px;
+        min-height: 210px
+    }
 </style>

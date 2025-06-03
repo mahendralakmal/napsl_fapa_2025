@@ -2,7 +2,16 @@
     <div class="layout-width">
         <div class="navbar-header">
             <div class="d-flex">
-                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
+                {{-- <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button> --}}
+                <!-- Add this toggler for mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="hamburger-icon">
                         <span></span>
                         <span></span>
@@ -10,30 +19,30 @@
                     </span>
                 </button>
             </div>
-                <nav class="navbar navbar-expand-md navbar-light">
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('entry-rules') }}">Entry Rules</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('pages-profile') }}">Entry Form</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('payment') }}">Payment</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('status.index') }}">Status</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('contact') }}">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <nav class="navbar navbar-expand-md navbar-light">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('entry-rules') }}">Entry Rules</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('pages-profile') }}">Entry Form</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('payment') }}">Payment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('status.index') }}">Status</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
             <div class="d-flex align-items-center">
                 <div class="timer" style="font-weight:bold; font-size:1.1em; width:150px; padding-top:8px;"></div>
                 {{-- Countdown Timer Script --}}
