@@ -18,7 +18,7 @@
             <br><br>
             or
             <br><br>
-            <i class="fa fa-credit-card"></i>&nbsp;&nbsp;Pay Here by Credit/Debit card (to the IPG)
+            <i class="fa fa-credit-card"></i>&nbsp;&nbsp;Pay Here by Credit/Debit card
         </p>
     </div>
 @endsection

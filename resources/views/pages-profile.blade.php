@@ -233,7 +233,7 @@
             const allowedCountries = [
                 "Australia", "Bangladesh", "Bhutan", "Brunei", "China", "Hong Kong", "India", "Indonesia", "Japan",
                 "Korea", "Macao", "Malaysia", "Mauritius", "Myanmar", "Nepal", "Pakistan", "Philippines", "Singapore",
-                "Sri Lanka", "Taiwan", "Thailand", "USA", "Vietnam","South Korea"
+                "Sri Lanka", "Taiwan", "Thailand", "USA", "Vietnam","South Korea","Egypt"
             ];
 
             // Fetch countries from restcountries.com
@@ -245,6 +245,7 @@
                         .filter(c => allowedCountries.some(name =>
                             c.name.common.toLowerCase() === name.toLowerCase()
                         ))
+                        .sort((a, b) => a.name.common.localeCompare(b.name.common)) // Sort by country name
                         .map(c => ({
                             id: c.name.common,
                             text: `${c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : ''} ${c.name.common}`,
