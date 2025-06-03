@@ -13,7 +13,7 @@
         <h2 class="mb-3">FAPA Awards 2025</h2>
         <h4>Payment Instructions:</h4>
         <p>
-            Entry fee may be transferred/deposited to the National Association of Photographers-Sri Lanka Account No. <strong>102960999134</strong> of the Sampath Bank Head Office Branch and the proof of payment should be emailed to <a href="mailto:napsrilanka@gmail.com">napsrilanka@gmail.com</a>
+            Entry fee may be transferred/deposited to the National Association of Photographers-Sri Lanka Account No. <strong>102960999314</strong> of the Sampath Bank Head Office Branch and the proof of payment should be emailed to <a href="mailto:napsrilanka@gmail.com">napsrilanka@gmail.com</a>
             <br><br>
             or
             <br><br>
