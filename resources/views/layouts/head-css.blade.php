@@ -197,6 +197,11 @@
             right: 35px;
         }
 
+        .no-js .owl-carousel, .owl-carousel.owl-loaded {
+            position: relative;
+            margin-top: 0px;
+        }
+
         .owl-carousel .item img {
             width: 100%;
             height: 315px;
