@@ -133,6 +133,80 @@
         display: none;
     }
 
+    .vintage-clock{
+        position: relative;
+        top: 45px;
+        right: -180px;
+    }
+    .time-value{
+        position: relative;
+        top: -30px
+    }
+
+    .time-label{
+        position: relative;
+        top: -25px
+    }
+    .time-separator{
+        position: relative;
+        top: -7px
+    }
+
+    .container, .container-fluid, .container-xxl, .container-xl, .container-lg, .container-md, .container-sm {
+        --vz-gutter-x: 2.5rem !important;
+    }
+
+    @media (max-width: 1366px) {
+        .vintage-clock{
+            position: relative;
+            top: 45px;
+            right: -155px;
+        }
+
+        .no-js .owl-carousel, .owl-carousel.owl-loaded {
+            position: relative;
+            margin-top: -35px;
+        }
+        .owl-carousel .item img {
+            width: 515px;
+            height: 300px;
+        }
+        .container, .container-fluid, .container-xxl, .container-xl, .container-lg, .container-md, .container-sm {
+            --vz-gutter-x: 2.5rem !important;
+        }
+    }
+
+    /* Tablet */
+    @media (max-width: 900px) {
+        .vintage-clock{
+            position: relative;
+            top: 45px;
+            right: -15px;
+        }
+
+        .container, .container-fluid, .container-xxl, .container-xl, .container-lg, .container-md, .container-sm {
+            --vz-gutter-x: 2.5rem !important;
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+        .vintage-clock{
+            position: relative;
+            top: 45px;
+            right: 35px;
+        }
+
+        .owl-carousel .item img {
+            width: 100%;
+            height: 315px;
+        }
+
+        .container, .container-fluid, .container-xxl, .container-xl, .container-lg, .container-md, .container-sm {
+            --vz-gutter-x: 2.5rem !important;
+        }
+    }
+
     @media (max-width: 668px) {
         .hamburger-icon{
             display: block;
@@ -169,5 +243,7 @@
             padding: 0 10px;
             min-height: 210px
         }
+
+
     }
 </style>
