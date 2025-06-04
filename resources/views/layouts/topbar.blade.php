@@ -67,7 +67,7 @@
                 </div>
 
                 <script>
-                    const countdownDate = new Date("2025-06-30T23:59:59").getTime();
+                    const countdownDate = new Date("2025-07-05T23:59:59").getTime();
                     const timer = setInterval(function() {
                         const now = new Date().getTime();
                         const distance = countdownDate - now;

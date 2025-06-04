@@ -56,7 +56,7 @@
             <li>USD 8.00 for both sections</li>
             <li><strong>Local (Sri Lankan) Entrants:</strong> LKR 1500 for one section &amp; LKR 2500 for both sections</li>
         </ul>
-        <p><strong>Closing Date:</strong> <span style="color: rgb(255 0 0) !important; font-size: large; font-weight: bold;">30th of June 2025</span></p>
+        <p><strong>Closing Date:</strong> <span style="color: rgb(255 0 0) !important; font-size: large; font-weight: bold;">5th of July 2025</span></p>
     </div>
 @endsection
 @section('script')
