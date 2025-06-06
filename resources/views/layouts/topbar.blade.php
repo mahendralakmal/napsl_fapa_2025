@@ -32,13 +32,16 @@
                             <a class="nav-link" href="{{ url('pages-profile') }}">Entry Form</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('payment') }}">Payment</a>
+                            <a class="nav-link" href="{{ url('payments') }}">Payment</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('status.index') }}">Status</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login">Sign in</a>
                         </li>
                     </ul>
                 </div>
@@ -110,18 +113,6 @@
                             @csrf
                         </form>
                     </div>
-                </div>
-                @else
-                <div class="dropdown ms-sm-3 header-item">
-                    <nav class="navbar navbar-expand-md navbar-light">
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="login">Sign in</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
                 </div>
                 @endif
             </div>
