@@ -104,7 +104,7 @@
     .vintage-clock{
         position: relative;
         top: 45px;
-        right: -180px;
+        right: -100px;
     }
     .time-value{
         position: relative;
@@ -135,7 +135,7 @@
         .vintage-clock{
             position: relative;
             top: 45px;
-            right: -145px;
+            right: -80px;
         }
 
         .no-js .owl-carousel, .owl-carousel.owl-loaded {
@@ -190,7 +190,7 @@
         .vintage-clock{
             position: relative;
             top: 45px;
-            right: -15px;
+            right: 0px;
         }
 
         .container, .container-fluid, .container-xxl, .container-xl, .container-lg, .container-md, .container-sm {
