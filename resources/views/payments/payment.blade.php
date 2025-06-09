@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('title')
-    Rules & Regulations
 @endsection
 @section('css')
     <link href="{{ URL::asset('build/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -11,15 +10,17 @@
 @section('content')
     <div class="container bg-white p-5 rounded shadow">
         <h2 class="mb-3">FAPA Awards 2025</h2>
-        <h4>Payment Instructions:</h4>
-        <p>
-            Entry fee may be transferred/deposited to the National Association of Photographers-Sri Lanka Account No.
-            <strong>102960999314</strong> of the Sampath Bank Head Office Branch and the proof of payment should be emailed to <a href="mailto:napsrilanka@gmail.com">napsrilanka@gmail.com</a>
-            <br><br>
-            or
-            <br><br>
-            <i class="fa fa-credit-card"></i>&nbsp;&nbsp;Pay Here by Credit/Debit card
-        </p>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Make Payment</div>
+
+                    <div class="card-body">
+                        <iframe src="{{ $paymentPageUrl }}" style="width:100%; height:500px; border:none;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('script')
