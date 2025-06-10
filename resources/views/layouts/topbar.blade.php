@@ -41,7 +41,7 @@
                             <a class="nav-link" href="{{ route('contact') }}">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login">Sign in</a>
+                            {{-- <a class="nav-link" href="login">Sign in</a> --}}
                         </li>
                     </ul>
                 </div>
