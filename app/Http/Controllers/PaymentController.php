@@ -121,7 +121,11 @@ class PaymentController extends Controller
             $data['requestData']['tokenReference'] = 'user-'.auth()->id();
         }
 
-        return Http::withHeaders([/*...*/])->post($this->endpoint, $data);
+        return Http::withHeaders([
+            'AUTHTOKEN' => $this->authToken,
+            'Content-Type' => 'application/json',
+            'Cache-Control' => 'no-cache'
+        ])->post($this->endpoint, $data);
     }
     private function completePayment($reqId)
     {
