@@ -37,7 +37,7 @@
                                 <label for="currency">Currency:</label>
                                 <select class="form-control" name="currency" required>
                                     <option value="LKR">LKR</option>
-                                    <option value="USD">USD</option>
+                                    <option value="USD" selected>USD</option>
                                     <option value="AUD">AUD</option>
                                 </select>
                             </div>
@@ -53,9 +53,9 @@
                                 <label for="name">Name:</label>
                                 <input type="name" class="form-control" name="name" placeholder="Name">
                             </div>
-                            {{-- <label>
-                                <input type="checkbox" name="tokenize"> Save card for future payments
-                            </label> --}}
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" name="tokenize">&nbsp;<label class="form-check-label"> Save card for future payments</label>
+                            </div>
                             <button class="btn btn-primary mt-3" type="submit">Proceed to Payment</button>
                         </form>
                     </div>

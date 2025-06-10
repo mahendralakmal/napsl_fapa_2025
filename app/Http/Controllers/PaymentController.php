@@ -13,7 +13,9 @@ class PaymentController extends Controller
 
     public function __construct()
     {
-        $this->clientId = env('PAYCORP_CLIENT_ID');
+        // $this->clientIdLkr = env('PAYCORP_CLIENT_ID_LKR');
+        // $this->clientIdUsd = env('PAYCORP_CLIENT_ID_USD');
+        // $this->clientId = env('PAYCORP_CLIENT_ID_EUR');
         $this->authToken = env('PAYCORP_AUTH_TOKEN');
         $this->endpoint = env('PAYCORP_ENDPOINT');
     }
@@ -22,7 +24,7 @@ class PaymentController extends Controller
     {
         // Validate incoming request
         $validated = $request->validate([
-            'amount' => 'required|numeric',//|min:200', // Min 200 as per Paycorp docs
+            'amount' => 'required|numeric|min:200', // Min 200 as per Paycorp docs
             'currency' => 'required|string|size:3',
             'client_reference' => 'nullable|string|max:50',
             'tokenize' => 'nullable|boolean',
@@ -31,6 +33,13 @@ class PaymentController extends Controller
         ]);
 
         // Initialize payment with the validated data
+        if($validated['currency'] === 'LKR') {
+            $this->clientId = env('PAYCORP_CLIENT_ID_LKR');
+        } elseif($validated['currency'] === 'USD') {
+            $this->clientId = env('PAYCORP_CLIENT_ID_USD');
+        } else {
+            $this->clientId = env('PAYCORP_CLIENT_ID_EUR');
+        }
         $response = $this->initPayment(
             amount: $validated['amount'],
             currency: $validated['currency'],
@@ -114,41 +123,6 @@ class PaymentController extends Controller
 
         return Http::withHeaders([/*...*/])->post($this->endpoint, $data);
     }
-    // private function initPayment($amount, $currency)
-    // {
-    //     $data = [
-    //         'version' => '1.5',
-    //         'msgId' => uniqid(),
-    //         'operation' => 'PAYMENT_INIT',
-    //         'requestDate' => now()->toIso8601String(),
-    //         'validateOnly' => false,
-    //         'requestData' => [
-    //             'clientId' => $this->clientId,
-    //             'transactionType' => 'PURCHASE',
-    //             'transactionAmount' => [
-    //                 'totalAmount' => 0,
-    //                 'paymentAmount' => $amount,
-    //                 'serviceFeeAmount' => 0,
-    //                 'currency' => $currency
-    //             ],
-    //             'redirect' => [
-    //                 'returnUrl' => route('payment.return'),
-    //                 'cancelUrl' => route('payment.cancel'),
-    //                 'returnMethod' => 'GET'
-    //             ],
-    //             'clientRef' => 'REF-'.uniqid(),
-    //             'tokenize' => false,
-    //             'useReliability' => true
-    //         ]
-    //     ];
-
-    //     return Http::withHeaders([
-    //         'AUTHTOKEN' => $this->authToken,
-    //         'Content-Type' => 'application/json',
-    //         'Cache-Control' => 'no-cache'
-    //     ])->post($this->endpoint, $data);
-    // }
-
     private function completePayment($reqId)
     {
         $data = [
