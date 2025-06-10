@@ -238,18 +238,18 @@
 
             // Fetch countries from restcountries.com
             $.ajax({
-                url: 'https://restcountries.com/v3.1/all',
+                url: 'https://restcountries.com/v3.1/all?fields=name,flags,idd',
                 method: 'GET',
                 success: function(data) {
                     countries = data
                         .filter(c => allowedCountries.some(name =>
                             c.name.common.toLowerCase() === name.toLowerCase()
                         ))
-                        .sort((a, b) => a.name.common.localeCompare(b.name.common)) // Sort by country name
+                        .sort((a, b) => a.name.common.localeCompare(b.name.common))
                         .map(c => ({
                             id: c.name.common,
-                            text: `${c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : ''} ${c.name.common}`,
-                            dial_code: c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : '',
+                            text: `${c.idd && c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : ''} ${c.name.common}`,
+                            dial_code: c.idd && c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : '',
                             flag: c.flags && c.flags.png ? c.flags.png : ''
                         }))
                         .filter(c => c.dial_code.trim() !== '');
