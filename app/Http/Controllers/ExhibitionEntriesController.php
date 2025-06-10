@@ -133,7 +133,7 @@ class ExhibitionEntriesController extends Controller
         if (!$user) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        \Mail::to($user->email)->send(new \App\Mail\FinishSubmissionMail($user));
+        \Mail::to($user->email)->queue(new \App\Mail\FinishSubmissionMail($user));
         return response()->json(['success' => true]);
     }
 }

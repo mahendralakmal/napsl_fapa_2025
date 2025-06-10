@@ -84,7 +84,7 @@
                                         @endforeach
                                     </div>
                                     <div class="card-footer text-end">
-                                        <button type="button" id="btn-finish" class="btn btn-success">Done</button>
+                                        <button type="button" id="btn-finish" class="btn btn-success" disabled>Done</button>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +120,16 @@
                         }
                     });
 
+                    function checkFinishButton() {
+                        // Check if any .uploaded-image contains an <img>
+                        let hasEntry = $('.uploaded-image img').length > 0;
+                        $('#btn-finish').prop('disabled', !hasEntry);
+                    }
+
                     $(document).ready(function () {
+                        // Initial check (for preloaded entries)
+                        checkFinishButton();
+
                         $.ajax({
                             url: "{{ route('user_entries') }}",
                             method: "GET",
@@ -138,6 +147,7 @@
                                         }
                                     }
                                 });
+                                checkFinishButton(); // <-- Add this line
                             }
                         });
 
@@ -164,6 +174,7 @@
                                     } else {
                                         $imgDiv.html('<span class="text-success">Uploaded!</span>');
                                     }
+                                    checkFinishButton(); // <-- Add this line
                                 },
                                 error: function(xhr) {
                                     if(xhr.status === 422) {
