@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.page');
     Route::get('/payment/return', [PaymentController::class, 'handleReturn'])->name('payment.return');
     Route::get('/payment/cancel', [PaymentController::class, 'handleCancel'])->name('payment.cancel');
+    Route::post('/send-finish-email', [ExhibitionEntriesController::class, 'sendFinishEmail'])->name('send.finish.email');
 });
 
 Route::get('{any}', [HomeController::class, 'index'])->name('index');

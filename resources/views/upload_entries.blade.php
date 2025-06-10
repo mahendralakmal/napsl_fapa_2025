@@ -83,6 +83,9 @@
                                             </div> --}}
                                         @endforeach
                                     </div>
+                                    <div class="card-footer text-end">
+                                        <button type="button" id="btn-finish" class="btn btn-success">Done</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -177,6 +180,20 @@
                                     } else {
                                         $imgDiv.html('<span class="text-danger">Upload failed</span>');
                                     }
+                                }
+                            });
+                        });
+
+                        $('#btn-finish').on('click', function() {
+                            $.ajax({
+                                url: "{{ route('send.finish.email') }}",
+                                type: "POST",
+                                headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                                success: function(response) {
+                                    alert('Thank you! Confirmation email sent.');
+                                },
+                                error: function() {
+                                    alert('Could not send email. Please try again.');
                                 }
                             });
                         });

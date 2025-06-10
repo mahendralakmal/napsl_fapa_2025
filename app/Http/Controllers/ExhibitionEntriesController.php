@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ExhibitionEntriesController extends Controller
 {
@@ -120,5 +121,19 @@ class ExhibitionEntriesController extends Controller
     {
         $entries = \App\Models\ExhibitionEntries::where('user_id', auth()->id())->get();
         return response()->json($entries);
+    }
+
+    /**
+     * Send finish email to the user.
+     */
+    public function sendFinishEmail(Request $request)
+    {
+        $user = auth()->user();
+        Log::info('Sending finish email to user: ', ['user_id' => $user->id, 'email' => $user->email, 'name' => $user->fapa->name]);
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        \Mail::to($user->email)->send(new \App\Mail\FinishSubmissionMail($user));
+        return response()->json(['success' => true]);
     }
 }
