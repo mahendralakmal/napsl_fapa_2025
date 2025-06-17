@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
@@ -51,6 +52,7 @@ class PaymentController extends Controller
             ]
         );
 
+        Log::info('Payment Initialization Response: ', ['response' => $response]);
         // Handle response
         if ($response->successful()) {
             $responseData = $response->json();
@@ -97,6 +99,7 @@ class PaymentController extends Controller
             'validateOnly' => false,
             'requestData' => [
                 'clientId' => $this->clientId,
+                'clientIdHash' => '',
                 'transactionType' => 'PURCHASE',
                 'transactionAmount' => [
                     'totalAmount' => 0,
@@ -110,7 +113,10 @@ class PaymentController extends Controller
                     'returnMethod' => 'GET'
                 ],
                 'clientRef' => $clientRef,
+                'comment' => '',
                 'tokenize' => $tokenize,
+                'cssLocation1' => '',
+                'cssLocation2' => '',
                 'useReliability' => true,
                 'extraData' => $extraData
             ]
@@ -120,7 +126,9 @@ class PaymentController extends Controller
         if ($tokenize) {
             $data['requestData']['tokenReference'] = 'user-'.auth()->id();
         }
-
+        Log::info('Payment Initialization Data: ', $data);
+        Log::info('Payment Initialization Data: ', ['endpoint',$this->endpoint]);
+        Log::info('Payment Initialization Data: ', ['authToken',$this->authToken]);
         return Http::withHeaders([
             'AUTHTOKEN' => $this->authToken,
             'Content-Type' => 'application/json',
