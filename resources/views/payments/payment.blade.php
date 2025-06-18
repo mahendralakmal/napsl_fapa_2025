@@ -16,7 +16,7 @@
                     <div class="card-header">Make Payment</div>
 
                     <div class="card-body">
-                        <iframe src="{{ $paymentPageUrl }}" style="width:100%; height:500px; border:none;"></iframe>
+                        <iframe src="{{ $paymentPageUrl }}" style="width:100%; height:900px; border:none;"></iframe>
                     </div>
                 </div>
             </div>

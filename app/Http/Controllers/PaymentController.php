@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Client;
 
 class PaymentController extends Controller
 {
     private $clientId;
     private $authToken;
     private $endpoint;
+    private $hmacSecret;
 
     public function __construct()
     {
-        // $this->clientIdLkr = env('PAYCORP_CLIENT_ID_LKR');
-        // $this->clientIdUsd = env('PAYCORP_CLIENT_ID_USD');
-        // $this->clientId = env('PAYCORP_CLIENT_ID_EUR');
         $this->authToken = env('PAYCORP_AUTH_TOKEN');
         $this->endpoint = env('PAYCORP_ENDPOINT');
+        $this->hmacSecret = env('PAYCORP_HMAC_SECRET');
     }
 
     public function showPaymentPage(Request $request)
@@ -42,7 +42,7 @@ class PaymentController extends Controller
             $this->clientId = env('PAYCORP_CLIENT_ID_EUR');
         }
         $response = $this->initPayment(
-            amount: $validated['amount'],
+            amount: $validated['amount'].'00',
             currency: $validated['currency'],
             clientRef: $validated['client_reference'] ?? 'REF-'.uniqid(),
             tokenize: $validated['tokenize'] ?? false,
@@ -52,14 +52,20 @@ class PaymentController extends Controller
             ]
         );
 
-        Log::info('Payment Initialization Response: ', ['response' => $response]);
+        Log::info('Payment Initialization Response:-->', ['response' => $response]);
         // Handle response
-        if ($response->successful()) {
+        if ($response instanceof \Illuminate\Http\Client\Response && $response->successful()) {
             $responseData = $response->json();
-            return view('payment', [
-                'paymentPageUrl' => $responseData['responseData']['paymentPageUrl'],
-                'reqId' => $responseData['responseData']['reqid']
-            ]);
+            if (isset($responseData['responseData']['paymentPageUrl']) &&
+                isset($responseData['responseData']['reqid'])) {
+                return view('payments.payment', [
+                    'paymentPageUrl' => $responseData['responseData']['paymentPageUrl'],
+                    'reqId' => $responseData['responseData']['reqid']
+                ]);
+            } else {
+                Log::error('Payment response missing expected keys', ['response' => $responseData]);
+                return back()->with('error', 'Payment initialization failed: Invalid response from gateway.');
+            }
         }
 
         // Handle error
@@ -68,7 +74,8 @@ class PaymentController extends Controller
 
     public function handleReturn(Request $request)
     {
-        $reqId = $request->query('reqid');
+        // dd($request->reqid);
+        $reqId = $request->reqid;
 
         // Complete the payment
         $response = $this->completePayment($reqId);
@@ -77,7 +84,7 @@ class PaymentController extends Controller
             $responseData = $response->json();
 
             // Process successful payment
-            return view('payment.success', ['data' => $responseData['responseData']]);
+            return view('payments.success', ['data' => $responseData['responseData']]);
         }
 
         // Handle error
@@ -90,12 +97,42 @@ class PaymentController extends Controller
         return redirect()->route('payment.page')->with('error', 'Payment canceled');
     }
 
-    private function initPayment( float $amount, string $currency, string $clientRef = null, bool $tokenize = false, array $extraData = []) {
+    private function sendPaycorpRequest(array $data)
+    {
+        // Generate HMAC from the full data payload
+        $jsonData = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        $hmac = hash_hmac('sha256', $jsonData, $this->hmacSecret);
+
+        $headers = [
+            'HMAC' => $hmac,
+            'AUTHTOKEN' => $this->authToken,
+            'Content-Type' => 'application/json',
+            'Accept' => '*/*'
+        ];
+
+        $body = $jsonData;
+
+        $client = new \GuzzleHttp\Client();
+
+        try {
+            $request = new \GuzzleHttp\Psr7\Request('POST', $this->endpoint, $headers, $body);
+            $response = $client->sendAsync($request)->wait();
+
+            // Wrap Guzzle response in a Laravel-like response for compatibility
+            return new \Illuminate\Http\Client\Response($response);
+        } catch (\Exception $e) {
+            Log::error('Paycorp Request Exception: ' . $e->getMessage());
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    private function initPayment(float $amount, string $currency, string $clientRef = null, bool $tokenize = false, array $extraData = [])
+    {
         $data = [
             'version' => '1.5',
-            'msgId' => uniqid(),
+            'msgId' => strtoupper(uniqid()),
             'operation' => 'PAYMENT_INIT',
-            'requestDate' => now()->toIso8601String(),
+            'requestDate' => now()->format('Y-m-d\TH:i:s.vO'),
             'validateOnly' => false,
             'requestData' => [
                 'clientId' => $this->clientId,
@@ -122,19 +159,9 @@ class PaymentController extends Controller
             ]
         ];
 
-        // Add token reference if tokenizing
-        if ($tokenize) {
-            $data['requestData']['tokenReference'] = 'user-'.auth()->id();
-        }
-        Log::info('Payment Initialization Data: ', $data);
-        Log::info('Payment Initialization Data: ', ['endpoint',$this->endpoint]);
-        Log::info('Payment Initialization Data: ', ['authToken',$this->authToken]);
-        return Http::withHeaders([
-            'AUTHTOKEN' => $this->authToken,
-            'Content-Type' => 'application/json',
-            'Cache-Control' => 'no-cache'
-        ])->post($this->endpoint, $data);
+        return $this->sendPaycorpRequest($data);
     }
+
     private function completePayment($reqId)
     {
         $data = [
@@ -149,10 +176,6 @@ class PaymentController extends Controller
             ]
         ];
 
-        return Http::withHeaders([
-            'AUTHTOKEN' => $this->authToken,
-            'Content-Type' => 'application/json',
-            'Cache-Control' => 'no-cache'
-        ])->post($this->endpoint, $data);
+        return $this->sendPaycorpRequest($data);
     }
 }
