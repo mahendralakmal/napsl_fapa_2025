@@ -24,7 +24,6 @@ Auth::routes();
 
 Route::get('/', function (){ return view('index');})->name('root');
 Route::get('/entry-rules', function (){ return view('rules');})->name('entry-rules');
-Route::get('/payments', function (){ return view('payments.payments');})->name('payments');
 Route::get('/contact', function (){ return view('contact');})->name('contact');
 Route::resource('status', StatusController::class)->names('status');
 
@@ -38,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('upload_image', ExhibitionEntriesController::class)->names('exhibition_entries');
 
 
+    Route::get('/payments', function (){ return view('payments.payments');})->name('payments');
     Route::post('/payment/initiate', [PaymentController::class,'showPaymentPage'])->name('payment.initiate');
     Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.page');
     Route::post('/send-finish-email', [ExhibitionEntriesController::class, 'sendFinishEmail'])->name('send.finish.email');
