@@ -236,40 +236,42 @@
     @media (max-width: 668px) {
         .hamburger-icon{
             display: block;
+            position: fixed;
+            top: 20px;
+            left: 10px;
+            z-index: 1051;
         }
         .hamburger-icon span {
             background-color: #e9ebec;
             max-height: 2px;
         }
 
-        .hamburger-icon span:nth-child(1) {
-            top: 10px;
-            width: 100% !important;
-        }
-
-        .hamburger-icon span:nth-child(2) {
-            top: 16px;
-            width: 100% !important;
-        }
-
-        .hamburger-icon span:nth-child(3) {
-            bottom: 11px;
-            width: 100% !important;
-        }
-
+        /* Side menu styles */
         nav.navbar.navbar-expand-md.navbar-light {
-            width: 140px;
-            min-height: 300px;
-            position: absolute;
-            top: 20px;
+            width: 180px;
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #09004f;
+            z-index: 1050;
+            transition: transform 0.3s ease;
+            transform: translateX(-100%);
+            border-right: 1px solid #222;
+            box-shadow: 2px 0 8px #0002;
+            padding-top: 60px; /* space for hamburger */
+        }
+        nav.navbar.navbar-expand-md.navbar-light.active {
+            transform: translateX(0);
         }
 
         #navbarSupportedContent {
-            background-color: #09004f;
+            background-color: transparent;
             padding: 0 10px;
-            min-height: 210px
+            min-height: auto;
         }
-
-
+        body.menu-open {
+            overflow: hidden;
+        }
     }
 </style>

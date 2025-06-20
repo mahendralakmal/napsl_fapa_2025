@@ -66,19 +66,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // return request()->file('avatar');
+        $avatarBase64 = null;
         if (request()->has('avatar')) {
             $avatar = request()->file('avatar');
-            $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
-            $avatarPath = public_path('/images/');
-            $avatar->move($avatarPath, $avatarName);
+            $avatarContent = file_get_contents($avatar->getRealPath());
+            $avatarBase64 = 'data:' . $avatar->getMimeType() . ';base64,' . base64_encode($avatarContent);
         }
 
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'avatar' =>  $avatarName,
+            'avatar' => $avatarBase64,
+            'role' => 'client', // ensure only client users are registered
         ]);
 
 

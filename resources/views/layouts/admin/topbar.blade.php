@@ -2,28 +2,17 @@
     <div class="layout-width">
         <div class="navbar-header">
             <div class="d-flex">
-                {{-- <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
-                    <span class="hamburger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                </button> --}}
-                <!-- Add this toggler for mobile -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="hamburger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                </button>
+                <div class="hamburger-icon" style="display:none;cursor:pointer;z-index:1051;">
+                    <span style="display:block;width:30px;height:4px;margin:6px 0;background:#e9ebec;"></span>
+                    <span style="display:block;width:30px;height:4px;margin:6px 0;background:#e9ebec;"></span>
+                    <span style="display:block;width:30px;height:4px;margin:6px 0;background:#e9ebec;"></span>
+                </div>
             </div>
             <nav class="navbar navbar-expand-md navbar-light">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('entry-rules') }}">Entry Rules</a>
@@ -47,7 +36,7 @@
                 </div>
             </nav>
             <div class="d-flex align-items-center">
-                <div class="vintage-clock" style="font-family: 'Courier New', monospace; display: flex; gap: 8px; background: #222; padding: 15px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+                {{-- <div class="vintage-clock" style="font-family: 'Courier New', monospace; display: flex; gap: 8px; background: #222; padding: 15px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
                     <div class="time-unit" style="background: #111; padding: 10px; border-radius: 4px; color: #FFD700; text-align: center;">
                         <div class="time-value" style="font-size: 36px; font-weight: bold; letter-spacing: 2px; text-shadow: 0 0 5px rgba(255,215,0,0.7);">28</div>
                         <div class="time-label" style="font-size: 12px; color: #aaa; text-transform: uppercase;">Days</div>
@@ -92,7 +81,7 @@
                             document.querySelector('.vintage-clock').innerHTML = '<div style="color: #FFD700; font-size: 24px; padding: 20px;">EXPIRED</div>';
                         }
                     }, 1000);
-                </script>
+                </script> --}}
                 @if (Auth::user())
                 <div class="dropdown ms-sm-3 header-item" >
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

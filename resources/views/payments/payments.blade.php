@@ -56,11 +56,11 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="email">email:</label>
-                                <input type="email" class="form-control" name="email" placeholder="Email" value="{{ auth()->user()->email }}" required>
+                                <input type="email" class="form-control" name="email" placeholder="Email" value="{{ auth()->user()->email??'' }}" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="name">Name:</label>
-                                <input type="name" class="form-control" name="name" placeholder="Name" value="{{ auth()->user()->fapa->name }}" required>
+                                <input type="name" class="form-control" name="name" placeholder="Name" value="{{ auth()->user()->fapa->name??'' }}" required>
                             </div>
                             <div class="form-check mt-3">
                                 <input class="form-check-input" type="checkbox" name="tokenize">&nbsp;<label class="form-check-label"> Save card for future payments</label>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExhibitionEntriesController;
 use App\Http\Controllers\FapaInternationalAwardsController;
 use App\Http\Controllers\HomeController;
@@ -45,5 +46,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/payment/return', [PaymentController::class, 'handleReturn'])->name('payment.return');
 Route::get('/payment/cancel', [PaymentController::class, 'handleCancel'])->name('payment.cancel');
-
 Route::get('{any}', [HomeController::class, 'index'])->name('index');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    // ...other admin routes
+});
+
