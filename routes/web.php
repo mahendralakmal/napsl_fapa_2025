@@ -25,7 +25,6 @@ Auth::routes();
 Route::get('/', function (){ return view('index');})->name('root');
 Route::get('/entry-rules', function (){ return view('rules');})->name('entry-rules');
 Route::get('/contact', function (){ return view('contact');})->name('contact');
-Route::resource('status', StatusController::class)->names('status');
 
 //Update User Details
 Route::group(['middleware' => 'auth'], function () {
@@ -36,6 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/user-entries', [ExhibitionEntriesController::class, 'userEntries'])->name('user_entries');
     Route::resource('upload_image', ExhibitionEntriesController::class)->names('exhibition_entries');
 
+    Route::resource('status', StatusController::class)->names('status');
 
     Route::get('/payments', function (){ return view('payments.payments');})->name('payments');
     Route::post('/payment/initiate', [PaymentController::class,'showPaymentPage'])->name('payment.initiate');

@@ -25,7 +25,7 @@ class PaymentController extends Controller
     {
         // Validate incoming request
         $validated = $request->validate([
-            'amount' => 'required|numeric|min:200', // Min 200 as per Paycorp docs
+            'amount' => 'required|numeric',
             'currency' => 'required|string|size:3',
             'client_reference' => 'nullable|string|max:50',
             'tokenize' => 'nullable|boolean',
