@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExhibitionEntriesController;
+use App\Http\Controllers\ExhibitionPaymentController;
 use App\Http\Controllers\FapaInternationalAwardsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StatusController;
@@ -50,6 +51,6 @@ Route::get('{any}', [HomeController::class, 'index'])->name('index');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    // ...other admin routes
+    Route::post('/payments/store', [ExhibitionPaymentController::class, 'store'])->name('payments.store');
 });
 

@@ -15,8 +15,19 @@ class AdminController extends Controller
         $entriesCount = \App\Models\ExhibitionEntries::count();
         $monochromeCount = \App\Models\ExhibitionEntries::where('section', 'Open Monochrome')->count();
         $colorCount = \App\Models\ExhibitionEntries::where('section', 'Open Color')->count();
+        // $clients = \App\Models\User::with('fapa')->where('role', 'client')->get();
+        $clients = \App\Models\User::with('fapa')
+            ->where('role', 'client')
+            ->whereHas('fapa', function($q) {
+                $q->whereDoesntHave('payments', function($q2) {
+                    $q2->where('status', 'paid');
+                });
+            })
+            ->get();
+        $paidCount = \App\Models\Payment::where('status', 'paid')->count();
+        $unpaidCount = $clentCount - $paidCount;
 
-        return view('admin.index', compact('clentCount','entriesCount','monochromeCount','colorCount')); // Assuming you have an admin index view
+        return view('admin.index', compact('clentCount','entriesCount','monochromeCount','colorCount','clients','paidCount','unpaidCount')); // Assuming you have an admin index view
     }
 
     /**

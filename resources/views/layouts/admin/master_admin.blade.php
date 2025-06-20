@@ -23,7 +23,7 @@
         <!-- Start right Content here -->
         <!-- ============================================================== -->
         <div class="main-content">
-            <div class="page-content" style="margin-top: 0px !important;margin-bottom: 10px !important;">
+            <div class="page-content">
                 <div class="container-fluid">
 
                     @if ($errors->any())

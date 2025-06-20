@@ -40,9 +40,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contact') }}">Contact</a>
                         </li>
+                        @if (auth()->check() && auth()->user()->role === 'admin')
                         <li class="nav-item">
-                            {{-- <a class="nav-link" href="login">Sign in</a> --}}
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin</a>
                         </li>
+                        @endif
                     </ul>
                 </div>
             </nav>

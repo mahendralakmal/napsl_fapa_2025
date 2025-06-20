@@ -17,4 +17,9 @@ class FapaInternationalAwards extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'fapa_international_award_id', 'id');
+    }
 }

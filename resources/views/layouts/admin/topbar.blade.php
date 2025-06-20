@@ -15,22 +15,7 @@
                             <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('entry-rules') }}">Entry Rules</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('pages-profile') }}">Entry Form</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('payments') }}">Payment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('status.index') }}">Status</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contact') }}">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            {{-- <a class="nav-link" href="login">Sign in</a> --}}
+                            <a class="nav-link" href="{{ route('root') }}">Exhibition Site</a>
                         </li>
                     </ul>
                 </div>

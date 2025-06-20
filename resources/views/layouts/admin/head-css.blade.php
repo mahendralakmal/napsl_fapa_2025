@@ -120,13 +120,19 @@
         position: relative;
         top: -25px
     }
+    .page-content{
+        padding: 10px !important;
+        margin: 10px 0 !important;
+    }
     .time-separator{
         position: relative;
         top: -7px
     }
 
     .container, .container-fluid, .container-xxl, .container-xl, .container-lg, .container-md, .container-sm {
-        --vz-gutter-x: 2.5rem !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        --vz-gutter-x: 0.5rem !important;
     }
 
     @media (max-width: 1366px) {

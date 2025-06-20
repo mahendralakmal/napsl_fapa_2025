@@ -5,6 +5,7 @@
 @section('css')
     <link href="{{ URL::asset('build/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <style>
         .btn {
             display: inline-block;
@@ -48,7 +49,13 @@
                             <td>{{ $entry->country}}</td>
                             <td style="text-align: center;">{{ $entry->open_monochrome_count}}</td>
                             <td style="text-align: center;">{{ $entry->open_color_count}}</td>
-                            <td style="text-align: center;"></td>
+                            <td style="text-align: center; text-transform: capitalize;">
+                                @if(strtolower($entry->status) === 'paid')
+                                    <i class="fa fa-thumbs-up" style="color:green;" title="Paid"></i>
+                                @else
+                                    {{ ucfirst($entry->status) }}
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
