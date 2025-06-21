@@ -63,6 +63,51 @@
                     </div>
                 </div>
             </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header"><h3>User List</h3></div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-bordered table-striped align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($users as $user)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ ucfirst($user->role) }}</td>
+                                        <td>
+                                            @if(auth()->user()->id !== $user->id && auth()->user()->role === 'admin')
+                                                <form action="{{ route('impersonate.start', $user->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-warning btn-sm">
+                                                        <i class="fas fa-user-secret"></i> Impersonate
+                                                    </button>
+                                                </form>
+                                            @elseif(auth()->user()->id === $user->id && session()->has('impersonate'))
+                                                <form action="{{ route('impersonate.stop') }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-user-secret"></i> Stop Impersonate
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

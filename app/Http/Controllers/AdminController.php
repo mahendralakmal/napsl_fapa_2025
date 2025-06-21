@@ -26,8 +26,9 @@ class AdminController extends Controller
             ->get();
         $paidCount = \App\Models\Payment::where('status', 'paid')->count();
         $unpaidCount = $clentCount - $paidCount;
+        $users = \App\Models\User::all();
 
-        return view('admin.index', compact('clentCount','entriesCount','monochromeCount','colorCount','clients','paidCount','unpaidCount')); // Assuming you have an admin index view
+        return view('admin.index', compact('users','clentCount','entriesCount','monochromeCount','colorCount','clients','paidCount','unpaidCount')); // Assuming you have an admin index view
     }
 
     /**

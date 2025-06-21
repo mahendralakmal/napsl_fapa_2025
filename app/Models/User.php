@@ -54,4 +54,19 @@ class User extends Authenticatable
     public function exhibitionEntries(){
         return $this->hasMany(ExhibitionEntries::class);
     }
+
+    public function impersonate($userId)
+    {
+        session(['impersonate' => $this->id]);
+        auth()->loginUsingId($userId);
+    }
+
+    public function stopImpersonate()
+    {
+        if (session()->has('impersonate')) {
+            $originalId = session('impersonate');
+            auth()->loginUsingId($originalId);
+            session()->forget('impersonate');
+        }
+    }
 }

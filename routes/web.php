@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ImpersonateController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/payment/initiate', [PaymentController::class,'showPaymentPage'])->name('payment.initiate');
     Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.page');
     Route::post('/send-finish-email', [ExhibitionEntriesController::class, 'sendFinishEmail'])->name('send.finish.email');
+    Route::post('/impersonate/stop', [ImpersonateController::class, 'stop'])->name('impersonate.stop');
 });
 
 Route::get('/payment/return', [PaymentController::class, 'handleReturn'])->name('payment.return');
@@ -52,5 +54,7 @@ Route::get('{any}', [HomeController::class, 'index'])->name('index');
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::post('/payments/store', [ExhibitionPaymentController::class, 'store'])->name('payments.store');
+    Route::post('/impersonate/{user}', [ImpersonateController::class, 'impersonate'])->name('impersonate.start');
+
 });
 
