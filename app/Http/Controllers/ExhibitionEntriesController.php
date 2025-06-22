@@ -35,16 +35,16 @@ class ExhibitionEntriesController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->file('image'));
         try {
             $request->validate([
                 'image_caption' => 'required|string|max:255',
-                'image' => 'required|image|mimes:jpg,jpeg|max:2048|dimensions:max_width=1920,max_height=1080',
+                'image' => 'required|mimes:jpg,jpeg|max:2048|dimensions:max_width=1920,max_height=1080',
             ],
             [
                 'image_caption.required' => 'Title is required.',
                 'image_caption.max' => 'Title may not be greater than 255 characters.',
                 'image.required' => 'Image is required.',
-                'image.image' => 'The file must be an image.',
                 'image.mimes' => 'Image must be a file of type: jpg, jpeg.',
                 'image.max' => 'Image should not be larger than 2MB.',
                 'image.dimensions' => 'Image dimensions must not exceed 1920px width and 1080px height.',
@@ -63,7 +63,7 @@ class ExhibitionEntriesController extends Controller
                 $path = $request->file('image')->store('uploads', 'public');
                 $data['image'] = $path;
             }
-
+            // dd($data);
             // Update if exists, otherwise create
             $entry = \App\Models\ExhibitionEntries::updateOrCreate(
                 [
@@ -77,7 +77,7 @@ class ExhibitionEntriesController extends Controller
             return response()->json(['success' => true, 'image_url' => isset($data['image']) ? asset('storage/' . $data['image']) : null]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Return errors as JSON with 422 status
-            return response()->json(['errors' => $e->errors()], 422);
+            return response()->json(['errors' => $e], 422);
         }
     }
 
