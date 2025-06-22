@@ -45,7 +45,7 @@
                     @foreach($entries as $entry)
                         <tr>
                             <td style="text-align: center;">{{ $loop->iteration }}</td>
-                            <td>{{ $entry->title}}{{ $entry->name}} ({{ $entry->honors}})</td>
+                            <td>{{ $entry->title}}{{ $entry->name}} @if($entry->honors)({{ $entry->honors}})@endif</td>
                             <td>{{ $entry->country}}</td>
                             <td style="text-align: center;">{{ $entry->open_monochrome_count}}</td>
                             <td style="text-align: center;">{{ $entry->open_color_count}}</td>
