@@ -15,26 +15,22 @@
 
     <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="row w-100 justify-content-center">
-            {{-- <div class="card"> --}}
-                {{-- <div class="card-body"> --}}
-                    <div id="slideshow-container">
-                        <div class="text-center mb-3">
-                            <img id="slideshow-image" src="{{ $images[0] }}" alt="Image" class="img-fluid" style="height: 800px; box-shadow: #a8a8a8 7px 4px 14px; border: 0.5px solid #a8a8a8;">
-                        </div>
-                        <div class="text-center">
-                            <div id="mark-options">
-                                <label class="mb-2">Mark this image:</label>
-                                @for ($i = 1; $i <= 10; $i++)
-                                    <label class="form-check form-check-inline mx-1">
-                                        <input class="form-check-input" type="radio" name="mark" value="{{ $i }}"> {{ $i }}
-                                    </label>
-                                @endfor
-                                <button id="next-btn" class="btn btn-primary" disabled>Next</button>
-                            </div>
-                        </div>
+            <div id="slideshow-container">
+                <div class="text-center mb-3">
+                    <img id="slideshow-image" src="{{ $images[0] }}" alt="Image" class="img-fluid" style="height: 800px; box-shadow: #a8a8a8 7px 4px 14px; border: 0.5px solid #a8a8a8;">
+                </div>
+                <div class="text-center">
+                    <div id="mark-options">
+                        <label class="mb-2">Mark this image:</label>
+                        @for ($i = 1; $i <= 10; $i++)
+                            <label class="form-check form-check-inline mx-1">
+                                <input class="form-check-input" type="radio" name="mark" value="{{ $i }}"> {{ $i }}
+                            </label>
+                        @endfor
+                        <button id="next-btn" class="btn btn-primary" disabled>Next</button>
                     </div>
-                {{-- </div> --}}
-            {{-- </div> --}}
+                </div>
+            </div>
         </div>
     </div>
 @endsection
