@@ -9,6 +9,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ImpersonateController;
+use App\Http\Controllers\JudgersPanelController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -58,3 +59,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
+Route::middleware(['auth', 'judger'])->group(function () {
+    Route::get('/judging/index', [JudgersPanelController::class, 'index'])->name('judging.index');
+    Route::get('/judging/marking-carousel', [JudgersPanelController::class, 'markingCarousel'])->name('judging.marking-carousel');
+
+});
