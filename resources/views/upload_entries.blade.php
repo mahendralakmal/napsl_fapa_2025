@@ -4,6 +4,7 @@
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         .entry-image {
             position: relative;
@@ -70,6 +71,7 @@
                                                                             <button type="submit" class="btn btn-primary btn-upload">
                                                                                 Submit
                                                                             </button>
+
                                                                         </div>
                                                                         <div class="uploaded-image ms-3">
                                                                             <!-- Image preview will appear here -->
@@ -143,7 +145,14 @@
                                         // Set image
                                         if(entry.image){
                                             var imageUrl = "{{ asset('storage') }}/" + entry.image;
-                                            $form.find('.uploaded-image').html('<img src="' + imageUrl + '" class="img-thumbnail" style="max-width:250px;" />');
+                                            $form.find('.uploaded-image').html(
+                                                '<img src="' + imageUrl + '" class="img-thumbnail" style="max-width:250px;" />' +
+                                                '<button type="button" class="btn btn-danger btn-sm mt-2 btn-delete-image" ' +
+                                                'data-section="' + entry.section + '" ' +
+                                                'data-count="' + entry.count + '" ' +
+                                                'data-entry-id="' + (entry.id) + '" title="Delete" style="margin-left:5px">' +
+                                                '<i class="bi bi-trash"></i></button>'
+                                            );
                                         }
                                     }
                                 });
@@ -170,7 +179,14 @@
                                 headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
                                 success: function(response) {
                                     if(response.image_url){
-                                        $imgDiv.html('<img src="' + response.image_url + '" class="img-thumbnail" style="max-width:250px;" />');
+                                        $imgDiv.html(
+                                            '<img src="' + response.image_url + '" class="img-thumbnail" style="max-width:250px;" />' +
+                                            '<button type="button" class="btn btn-danger btn-sm mt-2 btn-delete-image" ' +
+                                            'data-section="' + $form.data('section') + '" ' +
+                                            'data-count="' + $form.data('count') + '" ' +
+                                            'data-entry-id="' + ($form.data("entry-id") || ($form.data("section") + "-" + $form.data("count"))) + '" ' +
+                                            'title="Delete" style="margin-left:5px"><i class="bi bi-trash"></i></button>'
+                                        );
                                     } else {
                                         $imgDiv.html('<span class="text-success">Uploaded!</span>');
                                     }
@@ -208,6 +224,37 @@
                                 }
                             });
                         });
+
+                        $(document).on('click', '.btn-delete-image', function() {
+                            alert('Delete image button clicked');
+                            var $btn = $(this);
+                            var entryId = $btn.data('entry-id');
+                            var section = $btn.data('section');
+                            var count = $btn.data('count');
+                            var $form = $('.myForm[data-section="' + section + '"][data-count="' + count + '"]');
+
+                            if(confirm('Are you sure you want to delete this image?')) {
+                                // Build the URL dynamically
+                                var url = "{{ route('exhibition_entries.destroy', ['upload_image' => 'ENTRY_ID']) }}".replace('ENTRY_ID', entryId);
+
+                                $.ajax({
+                                    url: url,
+                                    type: 'DELETE',
+                                    headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                                    success: function(response) {
+                                        $form.find('.uploaded-image').html('');
+                                        $form.find('input[name="image_caption"]').val('');
+                                        $form.find('input[name="image"]').val('');
+                                        checkFinishButton();
+                                    },
+                                    error: function() {
+                                        alert('Could not delete image. Please try again.');
+                                    }
+                                });
+                            }
+                        });
+
+
                     });
                 </script>
 @endsection
