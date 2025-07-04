@@ -32,8 +32,14 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title mb-3">Entry Form</h5>
-                                        <form id="submitForm" @if(is_null(auth()->user()->profile))action="{{route('user_profile.store')}}" method="POST"
-                                            @else action="{{route('user_profile.store',auth()->user()->profile->id)}}" method="PUT" @endif>
+                                        {{-- {{ auth()->user()->fapa->id }} --}}
+                                        <form id="submitForm"
+                                            @if(is_null(auth()->user()->fapa))
+                                                action="{{route('user_profile.store')}}" method="POST"
+                                            @else
+                                                action="{{route('user_profile.update',auth()->user()->fapa->id)}}" method="PUT"
+                                            @endif>
+
                                             @csrf
                                             <input type="hidden" id="id" name="id"
                                                 @if(!is_null(auth()->user()->profile))value="{{auth()->user()->profile->id}}"@endif>
