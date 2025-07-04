@@ -1,4 +1,4 @@
-@extends('layouts.admin.master_admin')
+@extends('layouts.judging.master_admin')
 @section('title')
     Rules & Regulations
 @endsection
@@ -13,6 +13,11 @@
         // $images is now passed from the controller
     @endphp
 
+    @if (!isset($images) || empty($images))
+        <div class="alert alert-warning text-center">
+            No images available for marking. Please check the upload process.
+        </div>
+    @else
     <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="row w-100 justify-content-center">
             <div id="slideshow-container">
@@ -33,6 +38,7 @@
             </div>
         </div>
     </div>
+    @endif
 @endsection
 @section('script')
     <!-- apexcharts -->

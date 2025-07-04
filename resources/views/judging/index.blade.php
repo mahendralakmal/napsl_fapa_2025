@@ -1,4 +1,4 @@
-@extends('layouts.admin.master_admin')
+@extends('layouts.judging.master_admin')
 @section('title')
     Rules & Regulations
 @endsection

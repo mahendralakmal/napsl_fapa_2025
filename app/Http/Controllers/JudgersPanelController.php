@@ -74,6 +74,8 @@ class JudgersPanelController extends Controller
             // Convert storage path to public URL
             $images[] = Storage::url($file);
         }
+
+        // dd($images); // Debugging line to check the images array
         $category = $request->input('category', 'monochrome'); // Default to 'monochrome' if not specified
         return view('judging.marking-carousel', compact('category','images'));
     }
