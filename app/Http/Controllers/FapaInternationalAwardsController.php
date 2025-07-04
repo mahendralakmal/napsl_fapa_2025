@@ -67,7 +67,7 @@ class FapaInternationalAwardsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FapaInternationalAwards $fapaInternationalAwards)
+    public function update(Request $request, $fapaInternationalAwards)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:10',
@@ -80,7 +80,7 @@ class FapaInternationalAwardsController extends Controller
             'telephone' => 'required|string|max:50',
         ]);
 
-        $award = FapaInternationalAwards::findOrFail($id);
+        $award = FapaInternationalAwards::findOrFail($fapaInternationalAwards);
         $award->update($validated);
 
         return redirect()->back()->with('success', 'Profile updated successfully!');

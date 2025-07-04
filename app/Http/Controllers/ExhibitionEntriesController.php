@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ExhibitionEntriesController extends Controller
 {
@@ -35,7 +36,6 @@ class ExhibitionEntriesController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->file('image'));
         try {
             $request->validate([
                 'image_caption' => 'required|string|max:255',
@@ -46,25 +46,23 @@ class ExhibitionEntriesController extends Controller
                 'image_caption.max' => 'Title may not be greater than 255 characters.',
                 'image.required' => 'Image is required.',
                 'image.mimes' => 'Image must be a file of type: jpg, jpeg.',
-                'image.max' => 'Image should not be larger than 2MB.',
-                'image.dimensions' => 'Image dimensions must not exceed 1920px width and 1080px height.',
+                'image.max' => 'Image should not be Exceeds the file size than 2MB.',
+                'image.dimensions' => 'Exceeds the image pixel dimensions 1920px maximum width and 1080px maximum height.',
             ]);
 
             $data = [
-                'exhibition_id' => 1, // or your logic
+                'exhibition_id' => 1,
                 'user_id' => auth()->id(),
                 'section' => $request->section,
                 'image_caption' => $request->image_caption,
                 'count' => $request->count,
             ];
 
-            // Handle image upload
             if ($request->hasFile('image')) {
                 $path = $request->file('image')->store('uploads', 'public');
                 $data['image'] = $path;
             }
-            // dd($data);
-            // Update if exists, otherwise create
+
             $entry = \App\Models\ExhibitionEntries::updateOrCreate(
                 [
                     'user_id' => auth()->id(),
@@ -109,9 +107,17 @@ class ExhibitionEntriesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ExhibitionEntries $exhibitionEntries): RedirectResponse
+    public function destroy(ExhibitionEntries $upload_image)
     {
-        //
+        // Delete the image file if it exists
+        if ($upload_image->image && Storage::disk('public')->exists($upload_image->image)) {
+            Storage::disk('public')->delete($upload_image->image);
+        }
+
+        // Delete the database record
+        $upload_image->delete();
+
+        return response()->json(['success' => true]);
     }
 
     /**

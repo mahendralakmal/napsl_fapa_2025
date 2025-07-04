@@ -80,6 +80,8 @@ class PaymentController extends Controller
         // Complete the payment
         $response = $this->completePayment($reqId);
 
+        dd($response->json());
+
         if ($response->successful()) {
             $responseData = $response->json();
 
