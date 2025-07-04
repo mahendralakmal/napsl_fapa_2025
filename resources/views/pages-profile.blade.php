@@ -35,12 +35,18 @@
                                         {{-- {{ auth()->user()->fapa->id }} --}}
                                         <form id="submitForm"
                                             @if(is_null(auth()->user()->fapa))
-                                                action="{{route('user_profile.store')}}" method="POST"
+                                                action="{{route('user_profile.store')}}"
                                             @else
-                                                action="{{route('user_profile.update',auth()->user()->fapa->id)}}" method="PUT"
-                                            @endif>
+                                                action="{{route('user_profile.update',auth()->user()->fapa->id)}}"
+                                            @endif
+                                            enctype="multipart/form-data"
+                                            method="POST">
 
+                                            @if(!is_null(auth()->user()->fapa))
+                                                @method('PUT')
+                                            @endif
                                             @csrf
+
                                             <input type="hidden" id="id" name="id"
                                                 @if(!is_null(auth()->user()->profile))value="{{auth()->user()->profile->id}}"@endif>
                                             <div class="mb-3">
