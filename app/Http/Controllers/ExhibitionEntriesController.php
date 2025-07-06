@@ -36,47 +36,42 @@ class ExhibitionEntriesController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $request->validate([
-                'image_caption' => 'required|string|max:255',
-                'image' => 'required|mimes:jpg,jpeg|max:2048|dimensions:max_width=1920,max_height=1080',
-            ],
-            [
-                'image_caption.required' => 'Title is required.',
-                'image_caption.max' => 'Title may not be greater than 255 characters.',
-                'image.required' => 'Image is required.',
-                'image.mimes' => 'Image must be a file of type: jpg, jpeg.',
-                'image.max' => 'Image should not be Exceeds the file size than 2MB.',
-                'image.dimensions' => 'Exceeds the image pixel dimensions 1920px maximum width and 1080px maximum height.',
-            ]);
+        $validate = $request->validate([
+            'image_caption' => 'required|string|max:255',
+            'image' => 'required|file|mimes:jpg,jpeg|max:2048|dimensions:max_width=1920,max_height=1080',
+        ],
+        [
+            'image_caption.required' => 'Title is required.',
+            'image_caption.max' => 'Title may not be greater than 255 characters.',
+            'image.required' => 'Image is required.',
+            'image.mimes' => 'Image must be a file of type: jpg, jpeg.',
+            'image.max' => 'Image should not be Exceeds the file size than 2MB.',
+            'image.dimensions' => 'Exceeds the image pixel dimensions 1920px maximum width and 1080px maximum height.',
+        ]);
 
-            $data = [
-                'exhibition_id' => 1,
+        $data = [
+            'exhibition_id' => 1,
+            'user_id' => auth()->id(),
+            'section' => $request->section,
+            'image_caption' => $request->image_caption,
+            'count' => $request->count,
+        ];
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('uploads', 'public');
+            $data['image'] = $path;
+        }
+
+        $entry = \App\Models\ExhibitionEntries::updateOrCreate(
+            [
                 'user_id' => auth()->id(),
                 'section' => $request->section,
-                'image_caption' => $request->image_caption,
                 'count' => $request->count,
-            ];
+            ],
+            $data
+        );
 
-            if ($request->hasFile('image')) {
-                $path = $request->file('image')->store('uploads', 'public');
-                $data['image'] = $path;
-            }
-
-            $entry = \App\Models\ExhibitionEntries::updateOrCreate(
-                [
-                    'user_id' => auth()->id(),
-                    'section' => $request->section,
-                    'count' => $request->count,
-                ],
-                $data
-            );
-
-            return response()->json(['success' => true, 'image_url' => isset($data['image']) ? asset('storage/' . $data['image']) : null]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Return errors as JSON with 422 status
-            return response()->json(['errors' => $e], 422);
-        }
+        return response()->json(['success' => true, 'image_url' => isset($data['image']) ? asset('storage/' . $data['image']) : null]);
     }
 
     /**
