@@ -226,7 +226,6 @@
                         });
 
                         $(document).on('click', '.btn-delete-image', function() {
-                            alert('Delete image button clicked');
                             var $btn = $(this);
                             var entryId = $btn.data('entry-id');
                             var section = $btn.data('section');
