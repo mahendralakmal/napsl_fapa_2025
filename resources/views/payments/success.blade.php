@@ -284,7 +284,11 @@
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="card">
-                                <div class="card-header">Payment Successful</div>
+                                @if($data['responseText'] ==="00")
+                                    <div class="card-header">Payment Successful</div>
+                                @else
+                                    <div class="card-header" style="color: #ff0000">Transaction Failed. Please check with your merchent</div>
+                                @endif
 
                                 <div class="card-body">
                                     <p>Thank you for your payment!</p>
