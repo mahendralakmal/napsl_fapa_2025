@@ -285,19 +285,22 @@
                         <div class="col-md-8">
                             <div class="card">
                                 @if($data['responseText'] == "00")
-                                    <div class="card-header">Payment Successful</div>
-                                    <div class="card-body">
+                                <div class="card-header">Payment Successful</div>
+                                <div class="card-body">
                                     <p>Transaction APPROVED. Thank you for your payment!</p>
-                                @else
-                                    <div class="card-header" style="color: #ff0000">Payment Unsuccessful</div>
-                                    <div class="card-body">
-                                    <p style="color: #ff0000">Transaction Failed. Please check with your merchent</p>
-                                @endif
-                                
                                     <p>Transaction Reference: {{ $data['txnReference'] }}</p>
                                     <p>Amount: {{ $data['transactionAmount']['paymentAmount'] / 100 }} {{ $data['transactionAmount']['currency'] }}</p>
                                     <p>Status: {{ $data['responseText'] }}</p>
                                 </div>
+                                @else
+                                <div class="card-header" style="color: #ff0000;">Payment Unsuccessful</div>
+                                <div class="card-body">
+                                    <p style="color: #ff0000;">Transaction FAILED. Please check with your merchant.</p>
+                                    <p>Transaction Reference: {{ $data['txnReference'] }}</p>
+                                    <p>Amount: {{ $data['transactionAmount']['paymentAmount'] / 100 }} {{ $data['transactionAmount']['currency'] }}</p>
+                                    <p>Status: {{ $data['responseText'] }}</p>
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
