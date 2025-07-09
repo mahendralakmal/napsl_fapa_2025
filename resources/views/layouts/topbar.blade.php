@@ -42,6 +42,9 @@
                         </li>
                         @if (auth()->check() && auth()->user()->role === 'admin')
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('exhibition_entries.index') }}">Upload Images</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin</a>
                         </li>
                         @endif
