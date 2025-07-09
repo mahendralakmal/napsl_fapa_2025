@@ -36,10 +36,11 @@ class PaymentController extends Controller
         // Initialize payment with the validated data
         if($validated['currency'] === 'LKR') {
             $this->clientId = env('PAYCORP_CLIENT_ID_LKR');
-        } elseif($validated['currency'] === 'USD') {
+        } else//if($validated['currency'] === 'USD') {
+        {
             $this->clientId = env('PAYCORP_CLIENT_ID_USD');
-        } else {
-            $this->clientId = env('PAYCORP_CLIENT_ID_EUR');
+        // } else {
+            // $this->clientId = env('PAYCORP_CLIENT_ID_EUR');
         }
         $response = $this->initPayment(
             amount: $validated['amount'].'00',
