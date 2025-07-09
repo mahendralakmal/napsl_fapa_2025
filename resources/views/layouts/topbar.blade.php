@@ -49,7 +49,7 @@
                 </div>
             </nav>
             <div class="d-flex align-items-center">
-                <div class="vintage-clock" style="font-family: 'Courier New', monospace; display: flex; gap: 8px; background: #222; padding: 15px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+                {{-- <div class="vintage-clock" style="font-family: 'Courier New', monospace; display: flex; gap: 8px; background: #222; padding: 15px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
                     <div class="time-unit" style="background: #111; padding: 10px; border-radius: 4px; color: #FFD700; text-align: center;">
                         <div class="time-value" style="font-size: 36px; font-weight: bold; letter-spacing: 2px; text-shadow: 0 0 5px rgba(255,215,0,0.7);">28</div>
                         <div class="time-label" style="font-size: 12px; color: #aaa; text-transform: uppercase;">Days</div>
@@ -82,7 +82,6 @@
                         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                        // Update the timer display
                         const values = document.querySelectorAll('.time-value');
                         values[0].textContent = days.toString().padStart(2, '0');
                         values[1].textContent = hours.toString().padStart(2, '0');
@@ -94,7 +93,7 @@
                             document.querySelector('.vintage-clock').innerHTML = '<div style="color: #FFD700; font-size: 24px; padding: 20px;">EXPIRED</div>';
                         }
                     }, 1000);
-                </script>
+                </script> --}}
                 @if (Auth::user())
                 <div class="dropdown ms-sm-3 header-item" >
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
