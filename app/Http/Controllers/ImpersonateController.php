@@ -16,6 +16,6 @@ class ImpersonateController extends Controller
     public function stop()
     {
         auth()->user()->stopImpersonate();
-        return redirect('/')->with('success', 'Stopped impersonation.');
+        return redirect('/admin/dashboard')->with('success', 'Stopped impersonation.');
     }
 }
