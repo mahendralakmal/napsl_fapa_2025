@@ -16,7 +16,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if ((auth()->check() && auth()->user()->role === 'admin') ||
-        (auth()->check() && auth()->user()->role === 'judger')) {
+        (auth()->check() && auth()->user()->role === 'judger') || (!session()->has('impersonate'))) {
             return $next($request);
         }
         abort(403, 'Unauthorized');
