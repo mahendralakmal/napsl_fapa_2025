@@ -53,8 +53,8 @@ Route::get('/payment/cancel', [PaymentController::class, 'handleCancel'])->name(
 Route::get('{any}', [HomeController::class, 'index'])->name('index');
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::post('/payments/store', [ExhibitionPaymentController::class, 'store'])->name('payments.store');
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard')->middleware('allow.impersonate');
+    Route::post('/payments/store', [ExhibitionPaymentController::class, 'store'])->name('payments.store')->middleware('allow.impersonate');;
     Route::post('/impersonate/{user}', [ImpersonateController::class, 'impersonate'])->name('impersonate.start');
 });
 Route::get('/stop-impersonate', [ImpersonateController::class, 'stopImpersonate'])->name('stop.impersonate');
