@@ -11,9 +11,6 @@ class AdminController extends Controller
      */
     public function index()
     {
-        if (!session()->has('impersonate')) {
-            abort(403, 'Access denied. Not impersonating.');
-        }
         $clentCount = \App\Models\User::where('role', 'client')->count();
         $entriesCount = \App\Models\ExhibitionEntries::count();
         $monochromeCount = \App\Models\ExhibitionEntries::where('section', 'Open Monochrome')->count();

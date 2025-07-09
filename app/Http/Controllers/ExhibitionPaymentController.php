@@ -9,10 +9,6 @@ class ExhibitionPaymentController extends Controller
 {
     public function store(Request $request)
     {
-        if (!session()->has('impersonate')) {
-            abort(403, 'Access denied. Not impersonating.');
-        }
-        
         $request->validate([
             'client_id' => 'required|exists:fapa_international_awards,id',
             'payment_status' => 'required|in:paid,unpaid',
