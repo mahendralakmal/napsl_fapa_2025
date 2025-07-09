@@ -30,6 +30,8 @@ Route::get('/', function (){ return view('index');})->name('root');
 Route::get('/entry-rules', function (){ return view('rules');})->name('entry-rules');
 Route::get('/contact', function (){ return view('contact');})->name('contact');
 
+Route::get('/stop-impersonate', [ImpersonateController::class, 'stopImpersonate'])->name('stop.impersonate');
+
 //Update User Details
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/update-profile/{id}', [HomeController::class, 'updateProfile'])->name('updateProfile');
@@ -60,7 +62,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/payments/store', [ExhibitionPaymentController::class, 'store'])->name('payments.store');
     Route::post('/impersonate/{user}', [ImpersonateController::class, 'impersonate'])->name('impersonate.start');
 });
-Route::get('/stop-impersonate', [ImpersonateController::class, 'stopImpersonate'])->name('stop.impersonate');
 
 Route::middleware(['auth', 'judger'])->group(function () {
     Route::get('/judging/index', [JudgersPanelController::class, 'index'])->name('judging.index');
