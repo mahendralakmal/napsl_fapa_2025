@@ -284,7 +284,7 @@
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="card">
-                                @if($data['responseText'] == "00")
+                                @if($data['responseCode'] == "00")
                                 <div class="card-header">Payment Successful</div>
                                 <div class="card-body">
                                     <p>Transaction APPROVED. Thank you for your payment!</p>
