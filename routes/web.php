@@ -56,8 +56,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::post('/payments/store', [ExhibitionPaymentController::class, 'store'])->name('payments.store');
     Route::post('/impersonate/{user}', [ImpersonateController::class, 'impersonate'])->name('impersonate.start');
-    Route::get('/stop-impersonate', [ImpersonateController::class, 'stopImpersonate'])->name('stop.impersonate');
 });
+Route::get('/stop-impersonate', [ImpersonateController::class, 'stopImpersonate'])->name('stop.impersonate');
 
 Route::middleware(['auth', 'judger'])->group(function () {
     Route::get('/judging/index', [JudgersPanelController::class, 'index'])->name('judging.index');
