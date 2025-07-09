@@ -56,7 +56,6 @@ Route::get('{any}', [HomeController::class, 'index'])->name('index');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])
-    ->middleware('allow.impersonate')
     ->name('admin.dashboard');
 
     Route::post('/payments/store', [ExhibitionPaymentController::class, 'store'])->name('payments.store');
