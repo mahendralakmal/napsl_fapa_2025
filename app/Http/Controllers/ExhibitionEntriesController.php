@@ -161,14 +161,14 @@ class ExhibitionEntriesController extends Controller
                 $imagePath = storage_path('app/public/' . $entry->image);
 
                 if (is_file($imagePath) && file_exists($imagePath)) {
-                    $username = str_replace(' ', '_', Str::slug($entry->user->fapa->name ?? 'section', ' '));
+                    $username = Str::slug($entry->user->fapa->name ?? 'section');
                     $country = Str::slug($entry->user->fapa->country ?? 'country');
                     $caption = Str::slug($entry->image_caption ?? 'image_caption');
-                    $category = str_replace(' ', '_', Str::slug($entry->section ?? 'section', ' '));
+                    $category = Str::slug($entry->section ?? 'section');
                     $ext = pathinfo($imagePath, PATHINFO_EXTENSION);
                     $imageNumber = $entry->count; // Use count or index as image number
 
-                    $customName = "{$category}-{$caption}-{$username}-{$imageNumber}-{$country}.{$ext}";
+                    $customName = "{$imageNumber}_{$category}_{$caption}.{$ext}";
 
                     $zip->addFile($imagePath, $customName);
                     $filesAdded++;
