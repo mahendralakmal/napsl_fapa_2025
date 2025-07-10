@@ -11,6 +11,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use ZipArchive;
 
 class ExhibitionEntriesController extends Controller
 {
@@ -136,5 +138,51 @@ class ExhibitionEntriesController extends Controller
         }
         \Mail::to($user->email)->queue(new \App\Mail\FinishSubmissionMail($user));
         return response()->json(['success' => true]);
+    }
+
+    /**
+     * Download the entry image.
+     */
+    public function downloadImages()
+    {
+        $entries = ExhibitionEntries::with('user','user.fapa')->get();
+        // Temporary zip path
+        $zipFileName = 'exhibition-images-' . now()->format('YmdHis') . '.zip';
+        $zipFilePath = storage_path('app/public/zips/' . $zipFileName);
+
+        // Ensure zip directory exists
+        Storage::disk('public')->makeDirectory('zips');
+
+        $zip = new ZipArchive;
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            $filesAdded = 0;
+            foreach ($entries as $index => $entry) {
+                $imagePath = storage_path('app/public/' . $entry->image);
+
+                if (is_file($imagePath) && file_exists($imagePath)) {
+                    $username = str_replace(' ', '_', Str::slug($entry->user->fapa->name ?? 'section', ' '));
+                    $country = Str::slug($entry->user->fapa->country ?? 'country');
+                    $caption = Str::slug($entry->image_caption ?? 'image_caption');
+                    $category = str_replace(' ', '_', Str::slug($entry->section ?? 'section', ' '));
+                    $ext = pathinfo($imagePath, PATHINFO_EXTENSION);
+                    $imageNumber = $index + 1;
+
+                    $customName = "{$category}_{$caption}_{$username}_{$imageNumber}_{$country}.{$ext}";
+
+                    $zip->addFile($imagePath, $customName);
+                    $filesAdded++;
+                }
+                // else: skip or log
+            }
+            $zip->close();
+
+            if ($filesAdded === 0) {
+                return response()->json(['error' => 'No valid images found to zip.'], 404);
+            }
+
+            return response()->download($zipFilePath)->deleteFileAfterSend(true);
+        }
+
+        return back()->with('error', 'Could not create zip file.');
     }
 }

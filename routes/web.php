@@ -60,6 +60,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::post('/payments/store', [ExhibitionPaymentController::class, 'store'])->name('payments.store');
     Route::post('/impersonate/{user}', [ImpersonateController::class, 'impersonate'])->name('impersonate.start');
+    Route::get('/exhibition-entries/download-images', [ExhibitionEntriesController::class, 'downloadImages'])
+    ->name('exhibition_entries.download_images');
+
+
+
 });
 
 Route::middleware(['auth', 'judger'])->group(function () {
