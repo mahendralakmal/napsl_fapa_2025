@@ -146,6 +146,7 @@ class ExhibitionEntriesController extends Controller
     public function downloadImages()
     {
         $entries = ExhibitionEntries::with('user','user.fapa')->get();
+        dd($entries);
         // Temporary zip path
         $zipFileName = 'exhibition-images-' . now()->format('YmdHis') . '.zip';
         $zipFilePath = storage_path('app/public/zips/' . $zipFileName);
@@ -165,9 +166,9 @@ class ExhibitionEntriesController extends Controller
                     $caption = Str::slug($entry->image_caption ?? 'image_caption');
                     $category = str_replace(' ', '_', Str::slug($entry->section ?? 'section', ' '));
                     $ext = pathinfo($imagePath, PATHINFO_EXTENSION);
-                    $imageNumber = $index + 1;
+                    $imageNumber = $entry->count; // Use count or index as image number
 
-                    $customName = "{$category}_{$caption}_{$username}_{$imageNumber}_{$country}.{$ext}";
+                    $customName = "{$category}-{$caption}-{$username}-{$imageNumber}-{$country}.{$ext}";
 
                     $zip->addFile($imagePath, $customName);
                     $filesAdded++;
