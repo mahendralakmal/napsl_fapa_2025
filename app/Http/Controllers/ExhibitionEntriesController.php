@@ -146,7 +146,7 @@ class ExhibitionEntriesController extends Controller
     public function downloadImages()
     {
         $entries = ExhibitionEntries::with('user','user.fapa')->get();
-        dd($entries);
+        // dd($entries);
         // Temporary zip path
         $zipFileName = 'exhibition-images-' . now()->format('YmdHis') . '.zip';
         $zipFilePath = storage_path('app/public/zips/' . $zipFileName);
