@@ -17,8 +17,8 @@
                         <label for="">Choose Image Category</label>
                         <select class="form-select" name="image_category" id="image_category" required>
                             <option value="">Select Category</option>
-                            <option value="monochrome">Open Monochrome</option>
-                            <option value="color">Open Color</option>
+                            <option value="Open Monochrome">Open Monochrome</option>
+                            <option value="Open Color">Open Color</option>
                         </select>
                         <div id="category-error" class="text-danger mt-2" style="display:none;">Please select an image category.</div>
                     </div>

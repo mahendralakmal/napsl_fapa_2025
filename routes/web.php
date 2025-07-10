@@ -55,20 +55,13 @@ Route::get('/payment/cancel', [PaymentController::class, 'handleCancel'])->name(
 Route::get('{any}', [HomeController::class, 'index'])->name('index');
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])
-    ->name('admin.dashboard');
-
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::post('/payments/store', [ExhibitionPaymentController::class, 'store'])->name('payments.store');
     Route::post('/impersonate/{user}', [ImpersonateController::class, 'impersonate'])->name('impersonate.start');
-    Route::get('/exhibition-entries/download-images', [ExhibitionEntriesController::class, 'downloadImages'])
-    ->name('exhibition_entries.download_images');
-
-
-
+    Route::get('/exhibition-entries/download-images', [ExhibitionEntriesController::class, 'downloadImages'])->name('exhibition_entries.download_images');
 });
 
 Route::middleware(['auth', 'judger'])->group(function () {
     Route::get('/judging/index', [JudgersPanelController::class, 'index'])->name('judging.index');
     Route::get('/judging/marking-carousel', [JudgersPanelController::class, 'markingCarousel'])->name('judging.marking-carousel');
-
 });

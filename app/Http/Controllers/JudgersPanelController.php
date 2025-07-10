@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ExhibitionEntries;
 
 class JudgersPanelController extends Controller
 {
@@ -68,14 +69,15 @@ class JudgersPanelController extends Controller
      */
     public function markingCarousel(Request $request)
     {
-        $files = Storage::files('public/uploads');
-        $images = [];
-        foreach ($files as $file) {
+        $entries = ExhibitionEntries::with('user','user.fapa')->where("section",$request->category)->get();
+        $images = array();
+        foreach ($entries  as $index=>$entry) {
             // Convert storage path to public URL
-            $images[] = Storage::url($file);
+            $images[$index]['image'] = $entry->image;
+            $images[$index]['caption'] = $entry->image_caption;
         }
 
-        // dd($images); // Debugging line to check the images array
+        // dd($images[0]['image']); // Debugging line to check the images array
         $category = $request->input('category', 'monochrome'); // Default to 'monochrome' if not specified
         return view('judging.marking-carousel', compact('category','images'));
     }

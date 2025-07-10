@@ -22,7 +22,11 @@
         <div class="row w-100 justify-content-center">
             <div id="slideshow-container">
                 <div class="text-center mb-3">
-                    <img id="slideshow-image" src="{{ $images[0] }}" alt="Image" class="img-fluid" style="height: 800px; box-shadow: #a8a8a8 7px 4px 14px; border: 0.5px solid #a8a8a8;">
+                    {{-- {{ asset("/storage/".$images[0]["image"]) }} --}}
+                    @php
+                        $image = "/storage/".$images[0]["image"];
+                    @endphp
+                    <img id="slideshow-image" src="{{ asset($image) }}" alt="Image" class="img-fluid" style="height: 800px; box-shadow: #a8a8a8 7px 4px 14px; border: 0.5px solid #a8a8a8;">
                 </div>
                 <div class="text-center">
                     <div id="mark-options">
