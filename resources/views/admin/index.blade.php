@@ -21,6 +21,9 @@
                         <p><strong>Unpaid : </strong>{{$unpaidCount}}</p>
                     </div>
                 </div>
+                <a href="{{ route('exhibition_entries.download_images') }}" class="btn btn-primary">
+                    Download All Images
+                </a>
             </div>
             <div class="col-2">
                 <div class="card">
@@ -109,9 +112,7 @@
                 </div>
             </div>
             <div class="col-2">
-                <a href="{{ route('exhibition_entries.download_images') }}" class="btn btn-primary">
-                    Download All Images
-                </a>
+
             </div>
         </div>
     </div>
