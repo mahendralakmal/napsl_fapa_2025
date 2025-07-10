@@ -171,7 +171,8 @@
                             </div>
                             <div class="col-2 col-md-2 col-lg-2 col-sm-2 col-xxl-2"></div>
                             <div class="col-5 col-md-5 col-lg-5 col-sm-5 col-xxl-5 d-flex justify-content-center align-items-center" style="min-height: 300px;">
-                                {{-- <div class="card">
+                                @if(session()->has('impersonate'))
+                                <div class="card">
                                     <div class="card-body">
                                         <a href="{{ route('exhibition_entries.index') }}"
                                         class="btn btn-primary{{ is_null(auth()->user()->fapa) ? ' disabled' : '' }}"
@@ -180,7 +181,8 @@
                                         </a>
                                         @if(is_null(auth()->user()->fapa))<p style="color: rgb(255 0 0) !important; font-size: x-small; font-weight: bold;position: absolute;margin-top: 90px;">Please submit the entry form.</p>@endif
                                     </div>
-                                </div> --}}
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
