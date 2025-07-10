@@ -11,62 +11,64 @@
 @section('content')
     <div class="">
         <div class="row">
-            <div class="col-2">
-                <div class="card">
-                    <div class="card-body">
-                        <h3>Entrents</h3>
-                        <span>{{$clentCount}}</span>
-                        <br>
-                        <p><strong>Paid : </strong>{{$paidCount}}</p>
-                        <p><strong>Unpaid : </strong>{{$unpaidCount}}</p>
+            <div class="col-6 row">
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Entrents</h3>
+                            <span>{{$clentCount}}</span>
+                            <br>
+                            <p><strong>Paid : </strong>{{$paidCount}}</p>
+                            <p><strong>Unpaid : </strong>{{$unpaidCount}}</p>
+                        </div>
+                    </div>
+                    <a href="{{ route('exhibition_entries.download_images') }}" class="btn btn-primary">
+                        Download All Images
+                    </a>
+                </div>
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Total Entries</h3>
+                            <span>{{$entriesCount}}</span>
+                            <br>
+                            <p><strong>Monochrome : </strong>{{$monochromeCount}}</p>
+                            <p><strong>Color : </strong>{{$colorCount}}</p>
+                        </div>
                     </div>
                 </div>
-                <a href="{{ route('exhibition_entries.download_images') }}" class="btn btn-primary">
-                    Download All Images
-                </a>
-            </div>
-            <div class="col-2">
-                <div class="card">
-                    <div class="card-body">
-                        <h3>Total Entries</h3>
-                        <span>{{$entriesCount}}</span>
-                        <br>
-                        <p><strong>Monochrome : </strong>{{$monochromeCount}}</p>
-                        <p><strong>Color : </strong>{{$colorCount}}</p>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header"><h3>Payment Confirmation</h3></div>
+                        <div class="card-body">
+                            <form action="" method="POST" enctype="multipart/form-data" id="paymentConfirmationForm">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="client_id" class="form-label">Select Client</label>
+                                    <select class="form-select" name="client_id" id="client_id" required>
+                                        <option value="">Select Client</option>
+                                        @foreach($clients as $client)(
+                                            @if($client->fapa))
+                                                <option value="{{ $client->fapa->id }}">{{ $client->fapa->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="payment_status" class="form-label">Payment Status</label>
+                                    <select class="form-select" name="payment_status" id="payment_status" required>
+                                        <option value="">Select Payment Status</option>
+                                        <option value="paid">Paid</option>
+                                        <option value="unpaid">Unpaid</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-header"><h3>Payment Confirmation</h3></div>
-                    <div class="card-body">
-                        <form action="" method="POST" enctype="multipart/form-data" id="paymentConfirmationForm">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="client_id" class="form-label">Select Client</label>
-                                <select class="form-select" name="client_id" id="client_id" required>
-                                    <option value="">Select Client</option>
-                                    @foreach($clients as $client)(
-                                        @if($client->fapa))
-                                            <option value="{{ $client->fapa->id }}">{{ $client->fapa->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="payment_status" class="form-label">Payment Status</label>
-                                <select class="form-select" name="payment_status" id="payment_status" required>
-                                    <option value="">Select Payment Status</option>
-                                    <option value="paid">Paid</option>
-                                    <option value="unpaid">Unpaid</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
+            <div class="col-6">
                 <div class="card">
                     <div class="card-header"><h3>User List</h3></div>
                     <div class="card-body table-responsive">
@@ -110,9 +112,6 @@
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="col-2">
-
             </div>
         </div>
     </div>
