@@ -11,7 +11,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $clentCount = \App\Models\User::where('role', 'client')->count();
+        $clentCount = \App\Models\FapaInternationalAwards::count();
+        // $clentCount = \App\Models\User::where('role', 'client')->count();
         $entriesCount = \App\Models\ExhibitionEntries::count();
         $monochromeCount = \App\Models\ExhibitionEntries::where('section', 'Open Monochrome')->count();
         $colorCount = \App\Models\ExhibitionEntries::where('section', 'Open Color')->count();
@@ -26,7 +27,7 @@ class AdminController extends Controller
             ->get();
         $paidCount = \App\Models\Payment::where('status', 'paid')->count();
         $unpaidCount = $clentCount - $paidCount;
-        $users = \App\Models\User::all();
+        $users = \App\Models\User::with("fapa")->get();
 
         return view('admin.index', compact('users','clentCount','entriesCount','monochromeCount','colorCount','clients','paidCount','unpaidCount')); // Assuming you have an admin index view
     }

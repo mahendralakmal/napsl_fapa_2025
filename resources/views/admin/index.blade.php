@@ -78,6 +78,7 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Has Entry Form</th>
                                     <th>Role</th>
                                     <th>Action</th>
                                 </tr>
@@ -88,6 +89,13 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
+                                        <td class="text-center">
+                                            @if($user->fapa)
+                                                <span class="badge bg-success">Yes</span>
+                                            @else
+                                                <span class="badge bg-danger">No</span>
+                                            @endif
+                                        </td>
                                         <td>{{ ucfirst($user->role) }}</td>
                                         <td>
                                             @if(auth()->user()->id !== $user->id && auth()->user()->role === 'admin')
