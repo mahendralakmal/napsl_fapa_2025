@@ -69,12 +69,19 @@ class JudgersPanelController extends Controller
      */
     public function markingCarousel(Request $request)
     {
-        $entries = ExhibitionEntries::with('user','user.fapa')->where("section",$request->category)->get();
+        // $entries = ExhibitionEntries::with('user','user.fapa')->where("section",$request->category)->get();
+        $entries = ExhibitionEntries::with(['user', 'user.fapa', 'myJudging'])
+            ->where('section', $request->category)
+            ->get();
+
+        // dd($entries[0]['myJudging']); // Debugging line to check the myJudging relationship
         $images = array();
         foreach ($entries  as $index=>$entry) {
             // Convert storage path to public URL
+            $images[$index]['image_id'] = $entry->id;
             $images[$index]['image'] = $entry->image;
             $images[$index]['caption'] = $entry->image_caption;
+            $images[$index]['my_judging'] = $entry->myJudging ? $entry->myJudging->mark : null;
         }
 
         // dd($images[0]['image']); // Debugging line to check the images array

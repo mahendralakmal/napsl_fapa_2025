@@ -64,4 +64,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'judger'])->group(function () {
     Route::get('/judging/index', [JudgersPanelController::class, 'index'])->name('judging.index');
     Route::get('/judging/marking-carousel', [JudgersPanelController::class, 'markingCarousel'])->name('judging.marking-carousel');
+    Route::post('/submit-mark', [App\Http\Controllers\JudgingController::class, 'submitMark'])->name('submit.mark');
 });

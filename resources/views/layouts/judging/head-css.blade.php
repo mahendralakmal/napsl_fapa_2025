@@ -121,7 +121,7 @@
         top: -25px
     }
     .page-content{
-        padding: 10px !important;
+        padding: 0px !important;
         margin: 10px 0 !important;
     }
     .time-separator{

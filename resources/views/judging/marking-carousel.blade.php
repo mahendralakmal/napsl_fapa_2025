@@ -18,21 +18,22 @@
             No images available for marking. Please check the upload process.
         </div>
     @else
-    <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="d-flex justify-content-center align-items-center">
         <div class="row w-100 justify-content-center">
             <div id="slideshow-container">
                 <div class="text-center mb-3">
-                    <img id="slideshow-image" src="" alt="Image" class="img-fluid" style="height: 800px; box-shadow: #a8a8a8 7px 4px 14px; border: 0.5px solid #a8a8a8;">
+                    <img id="slideshow-image" src="" alt="Image" class="img-fluid" style="height: 765px; box-shadow: #6a6a6a 8px 8px 16px; border: 0.5px solid #6a6a6a;">
                 </div>
                 <div class="text-center">
+                    <div id="caption" class="mb-2" style="font-size: large"></div>
                     <div id="mark-options">
+                        <button id="prev-btn" class="btn btn-primary" disabled> Previous </button>
                         <label class="mb-2">Mark this image:</label>
                         @for ($i = 1; $i <= 10; $i++)
-                            <label class="form-check form-check-inline mx-1">
-                                <input class="form-check-input" type="radio" name="mark" value="{{ $i }}"> {{ $i }}
-                            </label>
+                            <input type="radio" class="btn-check" name="mark" id="mark{{ $i }}" value="{{ $i }}" autocomplete="off">
+                            <label class="btn btn-outline-primary" style="position: relative; top:4px;" for="mark{{ $i }}">{{ $i }}</label>
                         @endfor
-                        <button id="next-btn" class="btn btn-primary" disabled>Next</button>
+                        <button id="next-btn" class="btn btn-primary" disabled> Next </button>
                     </div>
                 </div>
             </div>
@@ -61,8 +62,28 @@
 
         function showImage(index) {
             $('#slideshow-image').attr('src', '/storage/' + images[index]['image']);
+            $('#slideshow-image').attr('data-image_id', images[index]['image_id']);
+
+            $('#caption').text(images[index]['caption'] || 'No caption available');
+
+            // Reset radio buttons
             $('input[name="mark"]').prop('checked', false);
-            $('#next-btn').prop('disabled', true);
+
+            // Re-check previous mark if exists
+            if (images[index]['my_judging']) {
+                const mark = images[index]['my_judging'];
+                $('input[name="mark"][value="' + mark + '"]').prop('checked', true);
+                $('#next-btn').prop('disabled', false);
+            }
+            else if (marks[index]) {
+                $('input[name="mark"][value="' + marks[index] + '"]').prop('checked', true);
+                $('#next-btn').prop('disabled', false);
+            } else {
+                $('#next-btn').prop('disabled', true);
+            }
+
+            // Enable/disable navigation buttons
+            $('#prev-btn').prop('disabled', index === 0);
         }
 
         $(document).ready(function() {
@@ -76,20 +97,55 @@
                 const selectedMark = $('input[name="mark"]:checked').val();
                 marks[currentIndex] = selectedMark;
 
-                // TODO: Save mark via AJAX if needed
-                // $.post('/save-mark', { image: images[currentIndex], mark: selectedMark, _token: '{{ csrf_token() }}' });
-
                 currentIndex++;
                 if (currentIndex < images.length) {
                     showImage(currentIndex);
                 } else {
-                    // All images marked
                     $('#slideshow-container').html('<div class="alert alert-success text-center">Thank you! All images have been marked.</div>');
+                }
+            });
+
+            // Handle Previous button click
+            $('#prev-btn').on('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    showImage(currentIndex);
                 }
             });
 
             // Show the first image
             showImage(currentIndex);
+        });
+
+
+        // Function to submit marks
+        $('.btn-check').on('click', function () {
+            const selectedMark = $('input[name="mark"]:checked').val();
+            const imageId = $('#slideshow-image').data('image_id');
+
+            marks[currentIndex] = selectedMark;
+
+            // Send mark via AJAX
+            $.ajax({
+                url: '{{ route('submit.mark') }}',
+                type: 'POST',
+                data: {
+                    image_id: imageId,
+                    mark: selectedMark,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    currentIndex++;
+                    if (currentIndex < images.length) {
+                        showImage(currentIndex);
+                    } else {
+                        $('#slideshow-container').html('<div class="alert alert-success text-center">Thank you! All images have been marked.</div>');
+                    }
+                },
+                error: function (xhr) {
+                    alert('Error submitting mark: ' + xhr.responseJSON.message);
+                }
+            });
         });
     </script>
 @endsection

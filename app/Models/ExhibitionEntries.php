@@ -25,4 +25,14 @@ class ExhibitionEntries extends Model
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function judgings()
+    {
+        return $this->hasMany(Judging::class, 'image_id', 'id');
+    }
+
+    public function myJudging()
+    {
+        return $this->hasOne(Judging::class, 'image_id', 'id')->where('user_id', auth()->id());
+    }
 }
