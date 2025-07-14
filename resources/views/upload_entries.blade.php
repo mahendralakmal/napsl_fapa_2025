@@ -85,9 +85,9 @@
                                             </div> --}}
                                         @endforeach
                                     </div>
-                                    <div class="card-footer text-end">
+                                    {{-- <div class="card-footer text-end">
                                         <button type="button" id="btn-finish" class="btn btn-success" disabled>Done</button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
