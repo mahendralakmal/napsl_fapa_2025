@@ -21,11 +21,14 @@
     <div class="d-flex justify-content-center align-items-center">
         <div class="row w-100 justify-content-center">
             <div id="slideshow-container">
-                <div class="text-center mb-3">
+                <div class="text-center mb-2">
+                    <div class="text-center mb-1">
+                        <h5>Remaining: <span id="remaining-count"></span> / {{ count($images) }}</h5>
+                    </div>
                     <img id="slideshow-image" src="" alt="Image" class="img-fluid" style="height: 765px; box-shadow: #6a6a6a 8px 8px 16px; border: 0.5px solid #6a6a6a;">
                 </div>
                 <div class="text-center">
-                    <div id="caption" class="mb-2" style="font-size: large"></div>
+                    <div id="caption" class="mb-1" style="font-size: large"></div>
                     <div id="mark-options">
                         <button id="prev-btn" class="btn btn-primary" disabled> Previous </button>
                         <label class="mb-2">Mark this image:</label>
@@ -66,7 +69,17 @@
                 return i;
             }
         }
-        return 0; // fallback: all are marked
+        return 0; // fallback
+    }
+
+    // Count how many images are marked
+    function getMarkedCount() {
+        return images.filter(img => img.my_judging || marks[images.indexOf(img)]).length;
+    }
+
+    function updateRemainingCount() {
+        const remaining = images.length - getMarkedCount();
+        $('#remaining-count').text(remaining);
     }
 
     function showImage(index) {
@@ -91,6 +104,7 @@
         }
 
         $('#prev-btn').prop('disabled', index === 0);
+        updateRemainingCount();
     }
 
     $(document).ready(function () {
@@ -123,6 +137,7 @@
                     } else {
                         $('#slideshow-container').html('<div class="alert alert-success text-center">Thank you! All images have been marked.</div>');
                     }
+                    updateRemainingCount();
                 },
                 error: function (xhr) {
                     alert('Error submitting mark: ' + xhr.responseJSON.message);
