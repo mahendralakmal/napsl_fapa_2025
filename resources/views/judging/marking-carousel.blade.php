@@ -54,10 +54,20 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
+<script>
     const images = @json($images);
     let currentIndex = 0;
     let marks = [];
+
+    // Find first unjudged image index
+    function getNextUnmarkedIndex() {
+        for (let i = 0; i < images.length; i++) {
+            if (!images[i].my_judging) {
+                return i;
+            }
+        }
+        return 0; // fallback: all are marked
+    }
 
     function showImage(index) {
         const image = images[index];
@@ -69,6 +79,7 @@
         $('#caption').text(image.caption || 'No caption available');
         $('input[name="mark"]').prop('checked', false);
 
+        // Re-check previously marked
         if (image.my_judging) {
             $('input[name="mark"][value="' + image.my_judging + '"]').prop('checked', true);
             $('#next-btn').prop('disabled', false);
@@ -83,8 +94,11 @@
     }
 
     $(document).ready(function () {
+        // Find and show first unmarked image
+        currentIndex = getNextUnmarkedIndex();
+        showImage(currentIndex);
 
-        // Mark selection and submit
+        // Handle mark click
         $('#mark-options input[name="mark"]').on('click', function () {
             const selectedMark = $(this).val();
             const imageId = $('#slideshow-image').attr('data-image_id');
@@ -100,6 +114,9 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function (response) {
+                    // Optionally mark as submitted
+                    // images[currentIndex].my_judging = selectedMark;
+
                     currentIndex++;
                     if (currentIndex < images.length) {
                         showImage(currentIndex);
@@ -112,11 +129,10 @@
                 }
             });
 
-            // Enable Next button after marking
             $('#next-btn').prop('disabled', false);
         });
 
-        // Next button
+        // Handle navigation
         $('#next-btn').on('click', function () {
             if (currentIndex < images.length - 1) {
                 currentIndex++;
@@ -126,113 +142,13 @@
             }
         });
 
-        // Previous button
         $('#prev-btn').on('click', function () {
             if (currentIndex > 0) {
                 currentIndex--;
                 showImage(currentIndex);
             }
         });
-
-        // Show the first image initially
-        showImage(currentIndex);
     });
 </script>
 
-    {{-- Uncomment the following script if you want to use the AJAX functionality --}}
-
-    {{-- <script>
-        const images = @json($images);
-        let currentIndex = 0;
-        let marks = [];
-
-        function showImage(index) {
-            $('#slideshow-image').attr('src', '/storage/' + images[index]['image']);
-            $('#slideshow-image').attr('data-image_id', images[index]['image_id']);
-
-            $('#caption').text(images[index]['caption'] || 'No caption available');
-
-            // Reset radio buttons
-            $('input[name="mark"]').prop('checked', false);
-
-            // Re-check previous mark if exists
-            if (images[index]['my_judging']) {
-                const mark = images[index]['my_judging'];
-                $('input[name="mark"][value="' + mark + '"]').prop('checked', true);
-                $('#next-btn').prop('disabled', false);
-            }
-            else if (marks[index]) {
-                $('input[name="mark"][value="' + marks[index] + '"]').prop('checked', true);
-                $('#next-btn').prop('disabled', false);
-            } else {
-                $('#next-btn').prop('disabled', true);
-            }
-
-            // Enable/disable navigation buttons
-            $('#prev-btn').prop('disabled', index === 0);
-        }
-
-        $(document).ready(function() {
-            // Enable Next button when a mark is selected
-            $('#mark-options input[name="mark"]').on('change', function() {
-                $('#next-btn').prop('disabled', false);
-            });
-
-            // Handle Next button click
-            $('#next-btn').on('click', function() {
-                const selectedMark = $('input[name="mark"]:checked').val();
-                marks[currentIndex] = selectedMark;
-
-                currentIndex++;
-                if (currentIndex < images.length) {
-                    showImage(currentIndex);
-                } else {
-                    $('#slideshow-container').html('<div class="alert alert-success text-center">Thank you! All images have been marked.</div>');
-                }
-            });
-
-            // Handle Previous button click
-            $('#prev-btn').on('click', function() {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    showImage(currentIndex);
-                }
-            });
-
-            // Show the first image
-            showImage(currentIndex);
-        });
-
-
-        // Function to submit marks
-        $('.btn-check').on('click', function () {
-            const selectedMark = $('input[name="mark"]:checked').val();
-            let imageId = $('#slideshow-image').data('image_id');
-            console.log('Selected Mark:', selectedMark, 'Image ID:', imageId);
-
-            marks[currentIndex] = selectedMark;
-
-            // Send mark via AJAX
-            $.ajax({
-                url: '{{ route('submit.mark') }}',
-                type: 'POST',
-                data: {
-                    image_id: imageId,
-                    mark: selectedMark,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function (response) {
-                    currentIndex++;
-                    if (currentIndex < images.length) {
-                        showImage(currentIndex);
-                    } else {
-                        $('#slideshow-container').html('<div class="alert alert-success text-center">Thank you! All images have been marked.</div>');
-                    }
-                },
-                error: function (xhr) {
-                    alert('Error submitting mark: ' + xhr.responseJSON.message);
-                }
-            });
-        });
-    </script> --}}
 @endsection
