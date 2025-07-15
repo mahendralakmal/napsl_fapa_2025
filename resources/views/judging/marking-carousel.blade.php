@@ -7,6 +7,42 @@
     <link href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css"/>
     <!-- Optionally include Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+
+    <style>
+        /* Zoom on click */
+        #slideshow-image.zoomed {
+            transform: scale(3);
+            cursor: zoom-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Normal image */
+        #slideshow-image {
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+
+        /* Magnifier icon effect */
+        #slideshow-image::after {
+            content: '\f002';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 24px;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        #slideshow-image:hover::after {
+            opacity: 1;
+        }
+
+    </style>
 @endsection
 @section('content')
     @php
@@ -25,7 +61,13 @@
                     <div class="text-center mb-1">
                         <h5>Remaining: <span id="remaining-count"></span> / {{ count($images) }}</h5>
                     </div>
-                    <img id="slideshow-image" src="" alt="Image" class="img-fluid" style="height: 765px; box-shadow: #6a6a6a 8px 8px 16px; border: 0.5px solid #6a6a6a;">
+                    <div id="image-wrapper" style="position: relative; overflow: hidden; display: inline-block;">
+                        <img id="slideshow-image"
+                            src=""
+                            alt="Image"
+                            class="img-fluid"
+                            style="height: 765px; transition: transform 0.3s ease; cursor: zoom-in;">
+                    </div>
                 </div>
                 <div class="text-center">
                     <div id="caption" class="mb-1" style="font-size: large"></div>
@@ -163,6 +205,35 @@
                 showImage(currentIndex);
             }
         });
+
+
+        $('#slideshow-image').on('click', function () {
+            $(this).toggleClass('zoomed');
+        });
+
+        $('#slideshow-image').on('click', function (e) {
+            const img = $(this);
+
+            if (img.hasClass('zoomed')) {
+                // Get click position relative to the image
+                const offset = img.offset();
+                const x = e.pageX - offset.left;
+                const y = e.pageY - offset.top;
+                const width = img.width();
+                const height = img.height();
+
+                // Calculate percentage for transform-origin
+                const xPercent = (x / width) * 100;
+                const yPercent = (y / height) * 100;
+                // Set transform-origin dynamically
+                img.css('transform-origin', `${xPercent}% ${yPercent}%`);
+                img.addClass('zoomed');
+            } else {
+                img.removeClass('zoomed');
+                img.css('transform-origin', 'center center'); // reset
+            }
+        });
+
     });
 </script>
 
