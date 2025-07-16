@@ -79,7 +79,7 @@
                             <input type="radio" class="btn-check" name="mark" id="mark{{ $i }}" value="{{ $i }}" autocomplete="off">
                             <label class="btn btn-outline-primary" style="position: relative; top:4px;" for="mark{{ $i }}">{{ $i }}</label>
                         @endfor
-                        <button id="next-btn" class="btn btn-primary" disabled> Next </button>
+                        <button id="next-btn" class="btn btn-primary"> Next </button>
                     </div>
                 </div>
             </div>
