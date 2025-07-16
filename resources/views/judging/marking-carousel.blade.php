@@ -66,7 +66,7 @@
                             src=""
                             alt="Image"
                             class="img-fluid"
-                            style="height: 745px; transition: transform 0.3s ease; cursor: zoom-in;">
+                            style="height: 735px; transition: transform 0.3s ease; cursor: zoom-in;">
                             {{-- style="height: 765px; transition: transform 0.3s ease; cursor: zoom-in;"> --}}
                     </div>
                 </div>
