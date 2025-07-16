@@ -143,7 +143,7 @@
             $('input[name="mark"][value="' + marks[index] + '"]').prop('checked', true);
             $('#next-btn').prop('disabled', false);
         } else {
-            $('#next-btn').prop('disabled', true);
+            $('#next-btn').prop('disabled', false);
         }
 
         $('#prev-btn').prop('disabled', index === 0);
