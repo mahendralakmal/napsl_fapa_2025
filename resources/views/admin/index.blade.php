@@ -7,64 +7,105 @@
     <link href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css"/>
     <!-- Optionally include Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<style>
+    .table th, .table td {
+        padding: 0.45rem 0.6rem !important;
+    }
+</style>
 @endsection
 @section('content')
     <div class="">
         <div class="row">
             <div class="col-6 row">
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Entrents</h3>
-                            <span>{{$clentCount}}</span>
-                            <br>
-                            <p><strong>Paid : </strong>{{$paidCount}}</p>
-                            <p><strong>Unpaid : </strong>{{$unpaidCount}}</p>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>Entrents</h3>
+                                    <span>{{$clentCount}}</span>
+                                    <br>
+                                    <p><strong>Paid : </strong>{{$paidCount}}</p>
+                                    <p><strong>Unpaid : </strong>{{$unpaidCount}}</p>
+                                </div>
+                            </div>
+                            <a href="{{ route('exhibition_entries.download_images') }}" class="btn btn-primary">
+                                Download All Images
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>Total Entries</h3>
+                                    <span>{{$entriesCount}}</span>
+                                    <br>
+                                    <p><strong>Monochrome : </strong>{{$monochromeCount}}</p>
+                                    <p><strong>Color : </strong>{{$colorCount}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header"><h3>Judging Status</h3></div>
+                                <div class="card-body">
+                                    <table class="table table-bordered table-striped align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Judge</th>
+                                                <th>Open Color</th>
+                                                <th>Open Monochrome</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($judging as $index => $row)
+                                                <tr>
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ $row['user_name'] }}</td>
+                                                    <td class="text-center">{{ $row['Open Color'] }}</td>
+                                                    <td class="text-center">{{ $row['Open Monochrome'] }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <a href="{{ route('exhibition_entries.download_images') }}" class="btn btn-primary">
-                        Download All Images
-                    </a>
-                </div>
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Total Entries</h3>
-                            <span>{{$entriesCount}}</span>
-                            <br>
-                            <p><strong>Monochrome : </strong>{{$monochromeCount}}</p>
-                            <p><strong>Color : </strong>{{$colorCount}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="card">
-                        <div class="card-header"><h3>Payment Confirmation</h3></div>
-                        <div class="card-body">
-                            <form action="" method="POST" enctype="multipart/form-data" id="paymentConfirmationForm">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="client_id" class="form-label">Select Client</label>
-                                    <select class="form-select" name="client_id" id="client_id" required>
-                                        <option value="">Select Client</option>
-                                        @foreach($clients as $client)(
-                                            @if($client->fapa))
-                                                <option value="{{ $client->fapa->id }}">{{ $client->fapa->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header"><h3>Payment Confirmation</h3></div>
+                                <div class="card-body">
+                                    <form action="" method="POST" enctype="multipart/form-data" id="paymentConfirmationForm">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="client_id" class="form-label">Select Client</label>
+                                            <select class="form-select" name="client_id" id="client_id" required>
+                                                <option value="">Select Client</option>
+                                                @foreach($clients as $client)(
+                                                    @if($client->fapa))
+                                                        <option value="{{ $client->fapa->id }}">{{ $client->fapa->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="payment_status" class="form-label">Payment Status</label>
+                                            <select class="form-select" name="payment_status" id="payment_status" required>
+                                                <option value="">Select Payment Status</option>
+                                                <option value="paid">Paid</option>
+                                                <option value="unpaid">Unpaid</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="payment_status" class="form-label">Payment Status</label>
-                                    <select class="form-select" name="payment_status" id="payment_status" required>
-                                        <option value="">Select Payment Status</option>
-                                        <option value="paid">Paid</option>
-                                        <option value="unpaid">Unpaid</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
+                            </div>
                         </div>
+                       
                     </div>
                 </div>
             </div>
@@ -72,7 +113,9 @@
                 <div class="card">
                     <div class="card-header"><h3>User List</h3></div>
                     <div class="card-body table-responsive">
-                        <table class="table table-bordered table-striped align-middle">
+                        {{-- <table class="table table-bordered table-striped align-middle"> --}}
+                        <table id="user-table" class="table table-bordered table-striped align-middle">
+
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -135,7 +178,23 @@
     <script src="{{ URL::asset('build/js/app.js') }}"></script>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#user-table').DataTable({
+            // Optional customizations:
+            "pageLength": 10,
+            "order": [], // Disable initial sorting
+        });
+    });
+</script>
+
     <script>
     $('#paymentConfirmationForm').on('submit', function(e) {
         e.preventDefault();

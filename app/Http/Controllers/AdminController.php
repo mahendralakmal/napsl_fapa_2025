@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Judging;
 
 class AdminController extends Controller
 {
@@ -28,8 +30,45 @@ class AdminController extends Controller
         $paidCount = \App\Models\Payment::where('status', 'paid')->count();
         $unpaidCount = $clentCount - $paidCount;
         $users = \App\Models\User::with("fapa")->get();
+        $rawResults = DB::table('judgings')
+            ->join('exhibition_entries', 'judgings.id', '=', 'exhibition_entries.id')
+            ->join('users', 'judgings.user_id', '=', 'users.id')
+            ->select(
+                'users.id as user_id',
+                'users.name as user_name',
+                'exhibition_entries.section',
+                DB::raw('count(*) as entry_count')
+            )
+            ->groupBy('users.id', 'users.name', 'exhibition_entries.section')
+            ->orderBy('users.name')
+            ->orderBy('exhibition_entries.section')
+            ->get();
 
-        return view('admin.index', compact('users','clentCount','entriesCount','monochromeCount','colorCount','clients','paidCount','unpaidCount')); // Assuming you have an admin index view
+        // Transform to get: [user_id => [user_name, 'Open Color' => count, 'Open Monochrome' => count]]
+        $grouped = [];
+
+        foreach ($rawResults as $row) {
+            $uid = $row->user_id;
+            if (!isset($grouped[$uid])) {
+                $grouped[$uid] = [
+                    'user_name' => $row->user_name,
+                    'Open Color' => 0,
+                    'Open Monochrome' => 0,
+                ];
+            }
+
+            if (strtolower($row->section) === 'open color') {
+                $grouped[$uid]['Open Color'] = $row->entry_count;
+            } elseif (strtolower($row->section) === 'open monochrome') {
+                $grouped[$uid]['Open Monochrome'] = $row->entry_count;
+            }
+        }
+
+        $judging = array_values($grouped);
+
+        // dd($judging);
+
+        return view('admin.index', compact('judging','users','clentCount','entriesCount','monochromeCount','colorCount','clients','paidCount','unpaidCount')); // Assuming you have an admin index view
     }
 
     /**
