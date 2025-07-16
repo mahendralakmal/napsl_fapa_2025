@@ -26,7 +26,27 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+
+    /**
+     * Get the post login redirect path.
+     *
+     * @return string
+     */
+    protected function redirectTo()
+    {
+        // dd(auth()->user()->role);
+        $role = auth()->user()->role;
+
+        $match = match ($role) {
+            'admin' => '/admin/dashboard',
+            'judger' => '/judging/index',
+            default => RouteServiceProvider::HOME,
+        };
+
+        // dd($match);
+        return $match;
+    }
 
     /**
      * Create a new controller instance.
