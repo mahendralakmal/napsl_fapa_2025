@@ -31,7 +31,7 @@ class AdminController extends Controller
         $unpaidCount = $clentCount - $paidCount;
         $users = \App\Models\User::with("fapa")->get();
         $rawResults = DB::table('judgings')
-            ->join('exhibition_entries', 'judgings.id', '=', 'exhibition_entries.id')
+            ->join('exhibition_entries', 'judgings.image_id', '=', 'exhibition_entries.id')
             ->join('users', 'judgings.user_id', '=', 'users.id')
             ->select(
                 'users.id as user_id',
@@ -65,7 +65,6 @@ class AdminController extends Controller
         }
 
         $judging = array_values($grouped);
-
         // dd($judging);
 
         return view('admin.index', compact('judging','users','clentCount','entriesCount','monochromeCount','colorCount','clients','paidCount','unpaidCount')); // Assuming you have an admin index view
