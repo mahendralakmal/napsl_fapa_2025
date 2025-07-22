@@ -65,9 +65,28 @@ class AdminController extends Controller
         }
 
         $judging = array_values($grouped);
-        // dd($judging);
 
-        return view('admin.index', compact('judging','users','clentCount','entriesCount','monochromeCount','colorCount','clients','paidCount','unpaidCount')); // Assuming you have an admin index view
+        $judging_results = DB::table('exhibition_entries')
+            ->leftJoin('judgings', 'exhibition_entries.id', '=', 'judgings.image_id')
+            ->select(
+                'exhibition_entries.id as image_id',
+                'exhibition_entries.image_caption as image_name',
+                'exhibition_entries.image',
+                'exhibition_entries.section',
+                DB::raw('SUM(judgings.mark) as total_score'),
+                DB::raw('COUNT(judgings.id) as judge_count')
+            )
+            ->groupBy(
+                'exhibition_entries.id',
+                'exhibition_entries.image_caption',
+                'exhibition_entries.image',
+                'exhibition_entries.section'
+            )
+            ->orderBy('total_score', 'DESC')
+            ->get();
+
+            // dd($judging_results);
+        return view('admin.index', compact('judging_results','judging','users','clentCount','entriesCount','monochromeCount','colorCount','clients','paidCount','unpaidCount')); // Assuming you have an admin index view
     }
 
     /**

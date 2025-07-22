@@ -13,6 +13,20 @@
     .table th, .table td {
         padding: 0.45rem 0.6rem !important;
     }
+.thumbnail {
+    max-width: 100px;
+    transition: all 0.3s ease; /* Smooth transition effect */
+    position: relative; /* Needed for z-index */
+    z-index: 1; /* Default stacking order */
+}
+
+.thumbnail:hover {
+    transform: scale(3); /* Enlarge by 1.5 times */
+    z-index: 10; /* Bring to front when hovered */
+    position: relative;
+
+    box-shadow: 0 0 10px rgba(0,0,0,0.3); /* Optional: Add shadow */
+}
 </style>
 @endsection
 @section('content')
@@ -105,7 +119,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -165,6 +179,39 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header"><h3>Judgin Results</h3></div>
+                    <div class="card-body">
+                        <table id="result-table" class="table table-bordered table-striped align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Image</th>
+                                    <th>Section</th>
+                                    <th>Caption</th>
+                                    <th>Total Score</th>
+                                    <th>Judge Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($judging_results as $result)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td><img src="/storage/{{ $result->image }}" alt="{{ $result->image_name }}" data-image-id="{{ $result->image_id }}" class="thumbnail"></td>
+                                        <td>{{ $result->section }}</td>
+                                        <td>{{ $result->image_name }}</td>
+                                        <td>{{ $result->total_score }}</td>
+                                        <td>{{ $result->judge_count }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('script')
@@ -190,6 +237,11 @@
         $('#user-table').DataTable({
             // Optional customizations:
             "pageLength": 10,
+            "order": [], // Disable initial sorting
+        });
+        $('#result-table').DataTable({
+            // Optional customizations:
+            "pageLength": 20,
             "order": [], // Disable initial sorting
         });
     });
