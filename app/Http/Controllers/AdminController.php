@@ -71,9 +71,8 @@ class AdminController extends Controller
             ->leftJoin('users', 'exhibition_entries.user_id', '=', 'users.id')
             ->select(
                 'exhibition_entries.id as image_id',
-                // DB::raw('COALESCE(NULLIF(fapa.name, ""), users.name) as entrant'),
-                // 'fapa.name as entrant',
                 'users.name as entrant',
+                'users.email',
                 'exhibition_entries.image_caption as image_name',
                 'exhibition_entries.image',
                 'exhibition_entries.section',
