@@ -191,6 +191,7 @@
                                     <th>Image</th>
                                     <th>Section</th>
                                     <th>Caption</th>
+                                    <th>Entrant</th>
                                     <th>Total Score</th>
                                     <th>Judge Count</th>
                                 </tr>
@@ -202,6 +203,7 @@
                                         <td><img src="/storage/{{ $result->image }}" alt="{{ $result->image_name }}" data-image-id="{{ $result->image_id }}" class="thumbnail"></td>
                                         <td>{{ $result->section }}</td>
                                         <td>{{ $result->image_name }}</td>
+                                        <td>{{ $result->entrant }}</td>
                                         <td>{{ $result->total_score }}</td>
                                         <td>{{ $result->judge_count }}</td>
                                     </tr>
