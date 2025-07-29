@@ -69,10 +69,12 @@ class AdminController extends Controller
         $judging_results = DB::table('exhibition_entries')
             ->leftJoin('judgings', 'exhibition_entries.id', '=', 'judgings.image_id')
             ->leftJoin('users', 'exhibition_entries.user_id', '=', 'users.id')
+            ->leftJoin('fapa_international_awards', 'exhibition_entries.user_id', '=', 'fapa_international_awards.user_id')
             ->select(
                 'exhibition_entries.id as image_id',
                 'users.name as entrant',
                 'users.email',
+                'fapa_international_awards.telephone',
                 'exhibition_entries.image_caption as image_name',
                 'exhibition_entries.image',
                 'exhibition_entries.section',
@@ -85,6 +87,8 @@ class AdminController extends Controller
                 'exhibition_entries.image',
                 'exhibition_entries.section',
                 'users.name',
+                'users.email',
+                'fapa_international_awards.telephone'
             )
             ->orderBy('total_score', 'DESC')
             ->get();
