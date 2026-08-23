@@ -17,11 +17,16 @@ class User extends Authenticatable
      *
      * @var string[]
      */
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_CLIENT = 'client';
+
     protected $fillable = [
         'name',
         'email',
         'password',
         'avatar',
+        'role',
+        'entries_submitted_at',
     ];
 
     /**
@@ -41,7 +46,23 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'entries_submitted_at' => 'datetime',
     ];
+
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isClient(): bool
+    {
+        return $this->role === self::ROLE_CLIENT;
+    }
+
+    public function hasSubmittedEntries(): bool
+    {
+        return $this->entries_submitted_at !== null;
+    }
 
     public function profile(){
         return $this->hasOne(UserProfile::class, 'user_id', 'id');

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 @endsection
 @section('content')
-    <div class="container bg-white p-5 rounded shadow">
+    <div class="container bg-white responsive-panel rounded shadow">
         <h2 class="mb-3">FAPA Awards 2025</h2>
         <h4>Payment Instructions:</h4>
         <p>
@@ -22,7 +22,7 @@
         </p>
 
         <div class="row justify-content-center">
-            <div class="col-md-5">
+            <div class="col-md-5 col-12">
                 <div class="card">
                     <div class="card-header">Make Payment</div>
 

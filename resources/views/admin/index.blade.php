@@ -11,31 +11,31 @@
 @section('content')
     <div class="">
         <div class="row">
-            <div class="col-2">
-                <div class="card">
+            <div class="col-12 col-sm-6 col-xl-3 mb-3">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h3>Entrents</h3>
-                        <span>{{$clentCount}}</span>
+                        <h3 class="h5">Entrants</h3>
+                        <span class="fs-4">{{$clentCount}}</span>
                         <br>
-                        <p><strong>Paid : </strong>{{$paidCount}}</p>
-                        <p><strong>Unpaid : </strong>{{$unpaidCount}}</p>
+                        <p class="mb-1"><strong>Paid : </strong>{{$paidCount}}</p>
+                        <p class="mb-0"><strong>Unpaid : </strong>{{$unpaidCount}}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-2">
-                <div class="card">
+            <div class="col-12 col-sm-6 col-xl-3 mb-3">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h3>Total Entries</h3>
-                        <span>{{$entriesCount}}</span>
+                        <h3 class="h5">Total Entries</h3>
+                        <span class="fs-4">{{$entriesCount}}</span>
                         <br>
-                        <p><strong>Monochrome : </strong>{{$monochromeCount}}</p>
-                        <p><strong>Color : </strong>{{$colorCount}}</p>
+                        <p class="mb-1"><strong>Monochrome : </strong>{{$monochromeCount}}</p>
+                        <p class="mb-0"><strong>Color : </strong>{{$colorCount}}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-header"><h3>Payment Confirmation</h3></div>
+            <div class="col-12 col-lg-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header"><h3 class="h5 mb-0">Payment Confirmation</h3></div>
                     <div class="card-body">
                         <form action="" method="POST" enctype="multipart/form-data" id="paymentConfirmationForm">
                             @csrf
@@ -63,9 +63,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-header"><h3>User List</h3></div>
+            <div class="col-12 col-lg-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header"><h3 class="h5 mb-0">User List</h3></div>
                     <div class="card-body table-responsive">
                         <table class="table table-bordered table-striped align-middle">
                             <thead>

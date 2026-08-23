@@ -25,12 +25,14 @@
         }
 
         #carouselExampleIndicators {
-            max-width: 800px;
+            max-width: 900px;
+            width: 100%;
             margin: auto;
         }
 
         .carousel-inner {
-            height: 400px; /* Set your desired height */
+            height: auto;
+            max-height: min(500px, 70vh);
         }
 
         .carousel-inner .carousel-item img {
@@ -40,19 +42,20 @@
         }
 
         .owl-carousel .item img {
-            width: 800px;
-            height: 500px;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: min(500px, 70vh);
             object-fit: cover;
             display: block;
             margin-left: auto;
             margin-right: auto;
         }
-        /* Center dots below the image */
+
         .owl-dots {
             text-align: center;
             margin-top: 10px;
             position: relative;
-            bottom: 35px!important;
         }
         .owl-dot span {
             width: 14px;

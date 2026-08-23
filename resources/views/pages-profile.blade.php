@@ -28,7 +28,7 @@
                 <div class="tab-content text-muted">
                     <div class="tab-pane active" id="overview-tab" role="tabpanel">
                         <div class="row">
-                            <div class="col-5 col-md-5 col-lg-5 col-sm-5 col-xxl-5">
+                            <div class="col-12 col-lg-5">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title mb-3">Entry Form</h5>
@@ -169,8 +169,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-2 col-md-2 col-lg-2 col-sm-2 col-xxl-2"></div>
-                            <div class="col-5 col-md-5 col-lg-5 col-sm-5 col-xxl-5 d-flex justify-content-center align-items-center" style="min-height: 300px;">
+                            <div class="d-none d-lg-block col-lg-2"></div>
+                            <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center mt-3 mt-lg-0" style="min-height: 200px;">
                                 <div class="card">
                                     <div class="card-body">
                                         <a href="{{ route('exhibition_entries.index') }}"
@@ -203,43 +203,89 @@
         function formatCountry(country) {
             if (!country.id) return country.text;
             return $(
-                `<span><img src="${country.flag}" class="me-2" style="width:20px;height:15px;"/>${country.dial_code} ${country.text.replace(country.dial_code, '')}</span>`
+                `<span><img src="${country.flag}" class="me-2" alt="" style="width:20px;height:15px;object-fit:cover;"/>${country.dial_code} ${country.name || country.text}</span>`
             );
         }
 
+        function initCountrySelect(data) {
+            countries = data.map(c => ({
+                id: c.id || c.name,
+                text: `${c.dial_code} ${c.name}`,
+                name: c.name,
+                dial_code: c.dial_code,
+                flag: c.flag
+            }));
+
+            $('#country').select2({
+                data: countries,
+                templateResult: formatCountry,
+                templateSelection: formatCountry,
+                placeholder: "Select country",
+                allowClear: true,
+                width: '100%'
+            });
+        }
+
         $(document).ready(function() {
-            // List of allowed country names (case-insensitive)
-            const allowedCountries = [
-                "Australia", "Bangladesh", "Bhutan", "Brunei", "China", "Hong Kong", "India", "Indonesia", "Japan",
-                "Korea", "Macao", "Malaysia", "Mauritius", "Myanmar", "Nepal", "Pakistan", "Philippines", "Singapore",
-                "Sri Lanka", "Taiwan", "Thailand", "USA", "Vietnam","South Korea","Egypt"
-            ];
-
-            // Fetch countries from restcountries.com
+            // Local country list (RestCountries v3.1 is deprecated / requires paid API key)
             $.ajax({
-                url: 'https://restcountries.com/v3.1/all?fields=name,flags,idd',
+                url: "{{ asset('data/allowed-countries.json') }}",
                 method: 'GET',
+                dataType: 'json',
                 success: function(data) {
-                    countries = data
-                        .filter(c => allowedCountries.some(name =>
-                            c.name.common.toLowerCase() === name.toLowerCase()
-                        ))
-                        .sort((a, b) => a.name.common.localeCompare(b.name.common))
-                        .map(c => ({
-                            id: c.name.common,
-                            text: `${c.idd && c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : ''} ${c.name.common}`,
-                            dial_code: c.idd && c.idd.root ? c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : '') : '',
-                            flag: c.flags && c.flags.png ? c.flags.png : ''
-                        }))
-                        .filter(c => c.dial_code.trim() !== '');
+                    initCountrySelect(data);
+                },
+                error: function() {
+                    // Fallback: free countries.dev API (same shape mapping)
+                    $.ajax({
+                        url: 'https://countries.dev/countries?fields=name,flags,callingCodes,alpha2Code',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            const allowed = [
+                                "Australia", "Bangladesh", "Bhutan", "Brunei", "China", "Hong Kong", "India",
+                                "Indonesia", "Japan", "Korea", "Macao", "Malaysia", "Mauritius", "Myanmar",
+                                "Nepal", "Pakistan", "Philippines", "Singapore", "Sri Lanka", "Taiwan",
+                                "Thailand", "USA", "United States", "United States of America", "Vietnam",
+                                "South Korea", "Egypt", "Brunei Darussalam", "Macau", "Viet Nam"
+                            ];
 
-                    $('#country').select2({
-                        data: countries,
-                        templateResult: formatCountry,
-                        templateSelection: formatCountry,
-                        placeholder: "Select country",
-                        allowClear: true,
-                        width: '100%'
+                            const mapped = data
+                                .filter(c => allowed.some(name =>
+                                    (c.name || '').toLowerCase() === name.toLowerCase() ||
+                                    (c.name || '').toLowerCase().includes(name.toLowerCase())
+                                ))
+                                .map(c => {
+                                    let id = c.name;
+                                    if (/united states/i.test(c.name)) id = 'USA';
+                                    if (/korea/i.test(c.name) && !/north/i.test(c.name)) id = 'South Korea';
+                                    if (/brunei/i.test(c.name)) id = 'Brunei';
+                                    if (/macao|macau/i.test(c.name)) id = 'Macao';
+                                    if (/viet nam/i.test(c.name)) id = 'Vietnam';
+
+                                    const code = (c.callingCodes && c.callingCodes[0]) ? String(c.callingCodes[0]) : '';
+                                    const dial = code ? (code.startsWith('+') ? code : '+' + code) : '';
+                                    const flag = (c.flags && c.flags.png)
+                                        ? c.flags.png
+                                        : (c.alpha2Code ? `https://flagcdn.com/w40/${c.alpha2Code.toLowerCase()}.png` : '');
+
+                                    return { id: id, name: id, dial_code: dial, flag: flag };
+                                })
+                                .filter(c => c.dial_code)
+                                .sort((a, b) => a.name.localeCompare(b.name));
+
+                            // de-dupe by id
+                            const unique = [];
+                            const seen = new Set();
+                            mapped.forEach(c => {
+                                if (!seen.has(c.id)) {
+                                    seen.add(c.id);
+                                    unique.push(c);
+                                }
+                            });
+
+                            initCountrySelect(unique);
+                        }
                     });
                 }
             });
@@ -270,7 +316,11 @@
                         // For country, set after Select2 is initialized and countries are loaded
                         let setCountry = function() {
                             if ($('#country').hasClass("select2-hidden-accessible")) {
-                                $('#country').val(profile.country).trigger('change'); // profile.country should be the full country name
+                                let value = profile.country;
+                                // Map legacy values
+                                if (/korea/i.test(value || '') && !/south/i.test(value || '')) value = 'South Korea';
+                                if (/united states/i.test(value || '')) value = 'USA';
+                                $('#country').val(value).trigger('change');
                             } else {
                                 setTimeout(setCountry, 100);
                             }

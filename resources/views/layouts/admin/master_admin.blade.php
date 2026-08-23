@@ -54,12 +54,6 @@
     setTimeout(function() {
         $('.error-seg').fadeOut('fast');
     }, 15000);
-
-    // Example JS for toggling sidebar
-    document.querySelector('.hamburger-icon').addEventListener('click', function() {
-        document.querySelector('nav.navbar.navbar-expand-md.navbar-light').classList.toggle('active');
-        document.body.classList.toggle('menu-open');
-    });
 </script>
 </body>
 

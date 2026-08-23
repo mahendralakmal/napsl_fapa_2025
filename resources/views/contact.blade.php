@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 @endsection
 @section('content')
-    <div class="container bg-white p-5 rounded shadow">
+    <div class="container bg-white responsive-panel rounded shadow">
         <h2 class="mb-3">Contact</h2>
         <p>
             <strong>Wimal Amaratunge. EFIAP</strong><br>

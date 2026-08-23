@@ -2,36 +2,29 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 
-class FinishSubmissionMail extends Mailable implements ShouldQueue
+class FinishSubmissionMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user;
 
+    public User $user;
+    public Collection $entries;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct($user)
+    public function __construct(User $user, Collection $entries)
     {
         $this->user = $user;
+        $this->entries = $entries;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
-        return $this->from(env('MAIL_FROM_ADDRESS'), 'NAPSL')
-            ->subject('Thank you for your FAPA Awards 2025 Submission')
+        return $this->from(config('mail.from.address'), config('mail.from.name'))
+            ->subject('FAPA Awards 2025 — Your Entry Confirmation')
             ->view('emails.finish_submission');
     }
 }

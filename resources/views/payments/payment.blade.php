@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 @endsection
 @section('content')
-    <div class="container bg-white p-5 rounded shadow">
+    <div class="container bg-white responsive-panel rounded shadow">
         <h2 class="mb-3">FAPA Awards 2025</h2>
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-12 col-lg-10">
                 <div class="card">
                     <div class="card-header">Make Payment</div>
 
-                    <div class="card-body">
-                        <iframe src="{{ $paymentPageUrl }}" style="width:100%; height:900px; border:none;"></iframe>
+                    <div class="card-body p-2 p-md-3">
+                        <iframe src="{{ $paymentPageUrl }}" title="Payment" class="payment-frame" style="width:100%; height:min(900px, 75vh); min-height:420px; border:none;"></iframe>
                     </div>
                 </div>
             </div>

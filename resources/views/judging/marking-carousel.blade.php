@@ -18,21 +18,21 @@
             No images available for marking. Please check the upload process.
         </div>
     @else
-    <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-        <div class="row w-100 justify-content-center">
-            <div id="slideshow-container">
+    <div class="d-flex justify-content-center align-items-center py-3" style="min-height: 70vh;">
+        <div class="row w-100 justify-content-center g-3">
+            <div id="slideshow-container" class="col-12 col-xl-10">
                 <div class="text-center mb-3">
-                    <img id="slideshow-image" src="{{ $images[0] }}" alt="Image" class="img-fluid" style="height: 800px; box-shadow: #a8a8a8 7px 4px 14px; border: 0.5px solid #a8a8a8;">
+                    <img id="slideshow-image" src="{{ $images[0] }}" alt="Image" class="img-fluid judging-slide-image" style="max-height: min(800px, 65vh); width: auto; max-width: 100%; height: auto; box-shadow: #a8a8a8 7px 4px 14px; border: 0.5px solid #a8a8a8;">
                 </div>
-                <div class="text-center">
-                    <div id="mark-options">
-                        <label class="mb-2">Mark this image:</label>
+                <div class="text-center px-2">
+                    <div id="mark-options" class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+                        <label class="mb-0 w-100 w-sm-auto">Mark this image:</label>
                         @for ($i = 1; $i <= 10; $i++)
-                            <label class="form-check form-check-inline mx-1">
+                            <label class="form-check form-check-inline m-0">
                                 <input class="form-check-input" type="radio" name="mark" value="{{ $i }}"> {{ $i }}
                             </label>
                         @endfor
-                        <button id="next-btn" class="btn btn-primary" disabled>Next</button>
+                        <button id="next-btn" class="btn btn-primary mt-2 mt-md-0" disabled>Next</button>
                     </div>
                 </div>
             </div>
